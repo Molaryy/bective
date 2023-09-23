@@ -1,0 +1,67 @@
+body {
+  background-color: #4d4a4a;
+}
+
+.time-form {
+  margin-top: 15rem;
+  margin-left: 10rem;
+  width: 400px;
+  height: 400px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.work-time {
+  position: absolute;
+  margin-top: 4rem;
+  margin-left: 20px;
+  width: 150px;
+}
+
+.work-time-input {
+  height: 40px;
+  width: 30px;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+.pause-time {
+  position: absolute;
+  margin-left: 220px;
+  margin-top: 4rem;
+}
+
+.pause-time-input  {
+  height: 40px;
+  width: 30px;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+
+
+
+.button-time-form {
+  margin-top: 20rem;
+  width: 80px;
+  height: 35px;
+  margin-left: 40px;
+}
+
+.pause-time-title {
+  position: absolute;
+  margin-left: 14.5rem;
+}
+
+.work-time-title {
+  position: absolute;
+  margin-left: 1rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input {
+  text-align: center;
+}
