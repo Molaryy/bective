@@ -1,11 +1,11 @@
-import {FormEvent} from "react";
+import {Dispatch, FormEvent, SetStateAction} from "react";
 
 export type TimerFormProps = {
     onSubmit: (event: FormEvent) => void;
     workTime: string[];
-    setWorkTime: (newWorkTime: (prevState: never) => (string | never)[]) => void;
+    setWorkTime: Dispatch<SetStateAction<string[]>>;
     pauseTime: string[];
-    setPauseTime: (newPauseTime: (prevState: never) => (string | never)[]) => void;
+    setPauseTime: Dispatch<SetStateAction<string[]>>;
     handlePauseTimer: () => void;
     handleResetTimer: () => void;
 };

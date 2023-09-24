@@ -1,4 +1,5 @@
 import {TimerFormProps} from "../types.ts";
+import React from "react";
 
 const TimerForm: React.FC<TimerFormProps> = ({ onSubmit,  workTime,  setWorkTime,  pauseTime,  setPauseTime,  handlePauseTimer,  handleResetTimer, }) => {
     return (

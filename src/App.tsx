@@ -2,8 +2,6 @@ import {FormEvent, useEffect, useState} from 'react'
 import './App.css'
 import pauseSound from "./assets/pause-music.mp3";
 import TimerForm from "./components/TimerForm.tsx";
-import {Simulate} from "react-dom/test-utils";
-import pause = Simulate.pause;
 
 function App() {
     const [workTime, setWorkTime] = useState<string[]>(["00", "00", "00"]);
@@ -14,7 +12,7 @@ function App() {
     const [storeWorkTime, setStoreWorkTime] = useState<string[] | null>(null);
     const [storePauseTime, setStorePauseTime]  = useState<string[] | null>(null);
 
-    const handleFormSubmit = (event: FormEvent) => {
+    const handleFormSubmit = (event: FormEvent): void => {
         event.preventDefault();
         setStoreWorkTime(workTime)
         setStorePauseTime(pauseTime)
@@ -22,58 +20,65 @@ function App() {
     }
 
     useEffect(() => {
-        let timeInterval: number | undefined;
+        const hoursInSeconds: number = parseInt(isWorkTimerRunning ? workTime[0] : pauseTime[0]) * 3600;
+        const minutesInSeconds: number = parseInt(isWorkTimerRunning ? workTime[1] : pauseTime[1]) * 60;
+        const seconds: number= parseInt(isWorkTimerRunning ? workTime[2] : pauseTime[2]);
+        let totalSeconds: number = hoursInSeconds + minutesInSeconds + seconds;
 
-        if (isWorkTimerRunning) {
-            let totalSeconds = parseInt(isWorkTimerRunning ? workTime[0] : pauseTime[0]) * 3600 + parseInt(isWorkTimerRunning ? workTime[1] : pauseTime[1]) * 60 + parseInt(isWorkTimerRunning ? workTime[2] : pauseTime[2]);
-            timeInterval = setInterval(() => {
-                if (totalSeconds <= 0) {
-                    clearInterval(timeInterval);
-                    setIsWorkTimerRunning(!isWorkTimerRunning);
-                    setStartSongWork(isWorkTimerRunning);
-                    setIsPauseTimerRunning(isWorkTimerRunning);
-                    if (storeWorkTime) {
-                        setWorkTime(storeWorkTime);
-                    }
-                } else {
-                    totalSeconds -= 1;
-                    const hours = Math.floor(totalSeconds / 3600);
-                    const minutes = Math.floor((totalSeconds % 3600) / 60);
-                    const seconds = totalSeconds % 60;
-                    const workedTime = [hours.toString().padStart(2, "0"), minutes.toString().padStart(2, "0"), seconds.toString().padStart(2, "0") ];
-                    isWorkTimerRunning ? setWorkTime(workedTime) : setPauseTime(workedTime);
+        if (!isWorkTimerRunning && !isPauseTimerRunning) {
+            return;
+        }
+
+        const timeInterval: number = setInterval(() => {
+            if (totalSeconds <= 0) {
+                clearInterval(timeInterval);
+                setIsWorkTimerRunning(!isWorkTimerRunning);
+                setStartSongWork(isWorkTimerRunning);
+                setIsPauseTimerRunning(isWorkTimerRunning);
+                if (storeWorkTime && storePauseTime) {
+                    setWorkTime(storeWorkTime);
+                    setPauseTime(storePauseTime);
                 }
-                }, 1000);
-        } }, [isPauseTimerRunning, isWorkTimerRunning, pauseTime, storePauseTime, storeWorkTime, workTime]);
-
+            } else {
+                totalSeconds -= 1;
+                const hours: number = Math.floor(totalSeconds / 3600);
+                const minutes: number = Math.floor((totalSeconds % 3600) / 60);
+                const seconds: number = totalSeconds % 60;
+                const workedTime: string[] = [hours.toString().padStart(2, "0"), minutes.toString().padStart(2, "0"), seconds.toString().padStart(2, "0") ];
+                isWorkTimerRunning ? setWorkTime(workedTime) : setPauseTime(workedTime);
+            }
+        }, 1000);
+        return () => clearInterval(timeInterval);
+        }, [isPauseTimerRunning, isWorkTimerRunning, pauseTime, storePauseTime, storeWorkTime, workTime]);
     const handlePauseTimer = () => {
         setIsWorkTimerRunning(false);
+        setIsPauseTimerRunning(false);
         setStartSongWork(false);
     };
 
     const handleResetTimer = () => {
         setIsWorkTimerRunning(false);
         setWorkTime(["00", "00", "00"]);
+        setPauseTime(["00", "00", "00"]);
     };
-
-  return (
-    <main>
-        <TimerForm
-            onSubmit={handleFormSubmit}
-            workTime={workTime}
-            setWorkTime={setWorkTime}
-            pauseTime={pauseTime}
-            setPauseTime={setPauseTime}
-            handlePauseTimer={handlePauseTimer}
-            handleResetTimer={handleResetTimer}
-        />
-        {startPauseSound ? (
-            <audio controls src={pauseSound} autoPlay={true} hidden={true}></audio>
-        ) : (
-            <></>
-        )}
-    </main>
-  )
+    return (
+        <main>
+            <TimerForm
+                onSubmit={handleFormSubmit}
+                workTime={workTime}
+                setWorkTime={setWorkTime}
+                pauseTime={pauseTime}
+                setPauseTime={setPauseTime}
+                handlePauseTimer={handlePauseTimer}
+                handleResetTimer={handleResetTimer}
+            />
+            {startPauseSound ? (
+                <audio controls src={pauseSound} autoPlay={true} hidden={true}></audio>
+            ) : (
+                <></>
+            )}
+        </main>
+    )
 }
 
 export default App
