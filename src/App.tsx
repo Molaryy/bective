@@ -18,7 +18,6 @@ function App() {
         setStorePauseTime(pauseTime)
         setIsWorkTimerRunning(true);
         setIsPauseTimerRunning(false);
-        console.log("IS SUBMIT")
     }
 
     useEffect(() => {
@@ -55,7 +54,6 @@ function App() {
     const handlePauseTimer = () => {
         setIsWorkTimerRunning(false);
         setIsPauseTimerRunning(false);
-        console.log(isWorkTimerRunning, isPauseTimerRunning)
         setStartSongWork(false);
     };
 
