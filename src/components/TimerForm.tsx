@@ -59,8 +59,8 @@ const TimerForm: React.FC<TimerFormProps> = ({ onSubmit,  workTime,  setWorkTime
                 />
             </label>
             <button className={"button-time-form"} type={"submit"}>Start</button>
-            <button className={"button-time-form"} onClick={handlePauseTimer}> Stop</button>
-            <button className={"button-time-form"} onClick={handleResetTimer}>Reset</button>
+            <button className={"button-time-form"} type={"button"} onClick={handlePauseTimer}> Stop</button>
+            <button className={"button-time-form"} type={"button"} onClick={handleResetTimer}>Reset</button>
         </form>
     )
 }

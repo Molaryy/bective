@@ -1,6 +1,6 @@
 import {FormEvent, useEffect, useState} from 'react'
-import './App.css'
-import pauseSound from "./assets/pause-music.mp3";
+import './styles/App.css'
+import pauseSound from "/assets/pause-music.mp3";
 import TimerForm from "./components/TimerForm.tsx";
 
 function App() {
@@ -17,6 +17,8 @@ function App() {
         setStoreWorkTime(workTime)
         setStorePauseTime(pauseTime)
         setIsWorkTimerRunning(true);
+        setIsPauseTimerRunning(false);
+        console.log("IS SUBMIT")
     }
 
     useEffect(() => {
@@ -49,10 +51,11 @@ function App() {
             }
         }, 1000);
         return () => clearInterval(timeInterval);
-        }, [isPauseTimerRunning, isWorkTimerRunning, pauseTime, storePauseTime, storeWorkTime, workTime]);
+    }, [isPauseTimerRunning, isWorkTimerRunning, pauseTime, storePauseTime, storeWorkTime, workTime]);
     const handlePauseTimer = () => {
         setIsWorkTimerRunning(false);
         setIsPauseTimerRunning(false);
+        console.log(isWorkTimerRunning, isPauseTimerRunning)
         setStartSongWork(false);
     };
 
