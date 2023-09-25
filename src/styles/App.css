@@ -38,8 +38,6 @@ body {
   border-radius: 5px;
 }
 
-
-
 .button-time-form {
   margin-top: 20rem;
   width: 80px;
@@ -57,11 +55,12 @@ body {
   margin-left: 1rem;
 }
 
+input {
+  text-align: center;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-input {
-  text-align: center;
 }

@@ -1,4 +1,8 @@
-import {FormEvent, useEffect, useState} from 'react'
+import {
+    FormEvent,
+    useEffect,
+    useState
+} from 'react'
 import './styles/App.css'
 import pauseSound from "/assets/pause-music.mp3";
 import TimerForm from "./components/TimerForm.tsx";
@@ -19,6 +23,18 @@ function App() {
         setIsWorkTimerRunning(true);
         setIsPauseTimerRunning(false);
     }
+
+    const handlePauseTimer = (): void => {
+        setIsWorkTimerRunning(false);
+        setIsPauseTimerRunning(false);
+        setStartSongWork(false);
+    };
+
+    const handleResetTimer = (): void => {
+        setIsWorkTimerRunning(false);
+        setWorkTime(["00", "00", "00"]);
+        setPauseTime(["00", "00", "00"]);
+    };
 
     useEffect(() => {
         const hoursInSeconds: number = parseInt(isWorkTimerRunning ? workTime[0] : pauseTime[0]) * 3600;
@@ -45,23 +61,15 @@ function App() {
                 const hours: number = Math.floor(totalSeconds / 3600);
                 const minutes: number = Math.floor((totalSeconds % 3600) / 60);
                 const seconds: number = totalSeconds % 60;
-                const workedTime: string[] = [hours.toString().padStart(2, "0"), minutes.toString().padStart(2, "0"), seconds.toString().padStart(2, "0") ];
+                const workedTime: string[] = [hours.toString().padStart(2, "0"), minutes.toString().padStart(2, "0"), seconds.toString().padStart(2, "0")];
                 isWorkTimerRunning ? setWorkTime(workedTime) : setPauseTime(workedTime);
             }
         }, 1000);
-        return () => clearInterval(timeInterval);
-    }, [isPauseTimerRunning, isWorkTimerRunning, pauseTime, storePauseTime, storeWorkTime, workTime]);
-    const handlePauseTimer = () => {
-        setIsWorkTimerRunning(false);
-        setIsPauseTimerRunning(false);
-        setStartSongWork(false);
-    };
 
-    const handleResetTimer = () => {
-        setIsWorkTimerRunning(false);
-        setWorkTime(["00", "00", "00"]);
-        setPauseTime(["00", "00", "00"]);
-    };
+        return () => clearInterval(timeInterval);
+
+    }, [isPauseTimerRunning, isWorkTimerRunning, pauseTime, storePauseTime, storeWorkTime, workTime]);
+
     return (
         <main>
             <TimerForm
