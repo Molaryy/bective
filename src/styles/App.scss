@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,500&display=swap');
 
 body {
+  padding: 0;
+  margin: 0;
   font-family: 'Poppins', sans-serif;
   background-color: #252323;
 }
@@ -41,7 +43,20 @@ body {
   border-radius: 5px;
 }
 
-.button-time-form {
+.buttons-time-form {
+  .btn-form {
+    border-radius: 10px;
+    transition: all 0.3s ease 0s;
+    display: inline-block;
+    padding: 0 15px;
+  }
+  .btn-form:hover {
+    color: #fcfcfc;
+    background-color: #000000;
+  }
+}
+
+.btn-form {
   margin-top: 20rem;
   width: 80px;
   height: 35px;
@@ -66,4 +81,34 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.navbar {
+  list-style: none;
+  display: flex;
+  background-color: #ffffff;
+  height: 35px;
+  width: 100%;
+  font-weight: 500;
+  justify-content: space-between;
+  align-items: center;
+
+  .navbar-elements-links {
+    cursor: pointer;
+    list-style: none;
+    color: black;
+  }
+
+  .navbar-elements-links .linkNav {
+    transition: all 0.3s ease 0s;
+    display: inline-block;
+    padding: 0 15px;
+    margin: 0 15px;
+  }
+
+  .navbar-elements-links .linkNav:hover {
+    color: #fcfcfc;
+    background-color: #000000;
+    border-radius: 5px;
+  }
 }

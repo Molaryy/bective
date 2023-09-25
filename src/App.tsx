@@ -1,14 +1,13 @@
-import './styles/App.scss';
-import TimerFormHandler from './components/Form/TimerFormHandler.tsx';
-import Navbar from './components/Navbar.tsx';
+import TimerFormHandler from './components/Form/TimerFormHandler.tsx'
+import Navbar from './components/Navbar.tsx'
 
 function App() {
   return (
-    <body>
+    <div>
       <Navbar />
       <TimerFormHandler />
-    </body>
-  );
+    </div>
+  )
 }
 
-export default App;
+export default App

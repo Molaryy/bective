@@ -1,55 +1,58 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import { TimerFormProps } from '../../types.ts';
+import React, { Dispatch, SetStateAction } from 'react'
+import { TimerFormProps } from '../../types.ts'
 
 function InputTime({
-										 time, isWorking, indexOnChangeToAddValue, setWorkTime, setPauseTime,
-									 }:
-										 {
-											 time: string,
-											 isWorking: boolean,
-											 indexOnChangeToAddValue: number,
-											 setWorkTime: Dispatch<SetStateAction<string[]>>,
-											 setPauseTime: Dispatch<SetStateAction<string[]>>
-										 }) {
+  time,
+  isWorking,
+  indexOnChangeToAddValue,
+  setWorkTime,
+  setPauseTime,
+}: {
+  time: string
+  isWorking: boolean
+  indexOnChangeToAddValue: number
+  setWorkTime: Dispatch<SetStateAction<string[]>>
+  setPauseTime: Dispatch<SetStateAction<string[]>>
+}) {
   return (
     <input
       value={time}
       className={isWorking ? 'work-time-input' : 'pause-time-input'}
-      type="number"
+      type='number'
       onChange={(event) => {
-			  const { value } = event.target;
-			  if (isWorking) {
-			    setWorkTime((prevState) => [
-			      indexOnChangeToAddValue === 0 ? value : prevState[0],
-			      indexOnChangeToAddValue === 1 ? value : prevState[1],
-			      indexOnChangeToAddValue === 2 ? value : prevState[2],
-			    ]);
-			  } else {
-			    setPauseTime((prevState) => [
-			      indexOnChangeToAddValue === 0 ? value : prevState[0],
-			      indexOnChangeToAddValue === 1 ? value : prevState[1],
-			      indexOnChangeToAddValue === 2 ? value : prevState[2],
-			    ]);
-			  }
+        const { value } = event.target
+        if (isWorking) {
+          setWorkTime((prevState) => [
+            indexOnChangeToAddValue === 0 ? value : prevState[0],
+            indexOnChangeToAddValue === 1 ? value : prevState[1],
+            indexOnChangeToAddValue === 2 ? value : prevState[2],
+          ])
+        } else {
+          setPauseTime((prevState) => [
+            indexOnChangeToAddValue === 0 ? value : prevState[0],
+            indexOnChangeToAddValue === 1 ? value : prevState[1],
+            indexOnChangeToAddValue === 2 ? value : prevState[2],
+          ])
+        }
       }}
       max={indexOnChangeToAddValue === 0 ? 24 : 60}
       min={0}
     />
-  );
+  )
 }
 
 const TimerForm: React.FC<TimerFormProps> = ({
-																							 onSubmit,
-																							 workTime,
-																							 setWorkTime,
-																							 pauseTime,
-																							 setPauseTime,
-																							 handlePauseTimer,
-																							 handleResetTimer,
-																						 }) => (
-  <form className="time-form" onSubmit={onSubmit}>
-    <h2 className="work-time-title">Working time</h2>
-    <label className="work-time">
+  onSubmit,
+  workTime,
+  setWorkTime,
+  pauseTime,
+  setPauseTime,
+  handlePauseTimer,
+  handleResetTimer,
+}) => (
+  <form className='time-form' onSubmit={onSubmit}>
+    <h2 className='work-time-title'>Working time</h2>
+    <label className='work-time'>
       <InputTime
         time={workTime[0]}
         isWorking
@@ -72,8 +75,8 @@ const TimerForm: React.FC<TimerFormProps> = ({
         setPauseTime={setPauseTime}
       />
     </label>
-    <h2 className="pause-time-title">Pause time</h2>
-    <label className="pause-time">
+    <h2 className='pause-time-title'>Pause time</h2>
+    <label className='pause-time'>
       <InputTime
         time={pauseTime[0]}
         isWorking={false}
@@ -96,10 +99,18 @@ const TimerForm: React.FC<TimerFormProps> = ({
         setPauseTime={setPauseTime}
       />
     </label>
-    <button className="button-time-form" type="submit">Start</button>
-    <button className="button-time-form" type="button" onClick={handlePauseTimer}> Stop</button>
-    <button className="button-time-form" type="button" onClick={handleResetTimer}>Reset</button>
+    <div className={'buttons-time-form'}>
+      <button className='btn-form' type='submit'>
+        Start
+      </button>
+      <button className='btn-form' type='button' onClick={handlePauseTimer}>
+        Stop
+      </button>
+      <button className='btn-form' type='button' onClick={handleResetTimer}>
+        Reset
+      </button>
+    </div>
   </form>
-);
+)
 
-export default TimerForm;
+export default TimerForm
