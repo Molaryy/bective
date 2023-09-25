@@ -21,6 +21,7 @@
         "@typescript-eslint",
         "prettier"
     ],
+    "ignorePatterns": ["vite-env.d.ts"],
     "rules": {
         "react/react-in-jsx-scope": "off",
         "camelcase": "error",
@@ -31,6 +32,9 @@
     "settings": {
         "import/resolver": {
             "typescript": {}
+        },
+        "react": {
+            "version": "detect"
         }
     }
 }
