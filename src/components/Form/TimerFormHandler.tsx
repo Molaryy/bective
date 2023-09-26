@@ -31,6 +31,12 @@ function TimerFormHandler() {
     setPauseTime(['00', '00', '00'])
   }
 
+  const handleContinueTimer = (): void => {
+    setIsWorkTimerRunning(workTime.toString() != storeWorkTime?.toString())
+    setIsPauseTimerRunning(pauseTime.toString() != storePauseTime?.toString())
+    !startPauseSound ? setStartSongWork(true) : setStartSongWork(false)
+  }
+
   useEffect(() => {
     const hoursInSeconds: number = parseInt(isWorkTimerRunning ? workTime[0] : pauseTime[0]) * 3600
     const minutesInSeconds: number = parseInt(isWorkTimerRunning ? workTime[1] : pauseTime[1]) * 60
@@ -78,6 +84,9 @@ function TimerFormHandler() {
         setPauseTime={setPauseTime}
         handlePauseTimer={handlePauseTimer}
         handleResetTimer={handleResetTimer}
+        handleContinueTimer={handleContinueTimer}
+        isWorking={isWorkTimerRunning}
+        isInPause={isPauseTimerRunning}
       />
       {startPauseSound ? <audio controls src={pauseSound} autoPlay hidden /> : <></>}
     </>

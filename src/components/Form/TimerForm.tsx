@@ -49,68 +49,79 @@ const TimerForm: React.FC<TimerFormProps> = ({
   setPauseTime,
   handlePauseTimer,
   handleResetTimer,
-}) => (
-  <form className='time-form' onSubmit={onSubmit}>
-    <h2 className='work-time-title'>Working time</h2>
-    <label className='work-time'>
-      <InputTime
-        time={workTime[0]}
-        isWorking
-        indexOnChangeToAddValue={0}
-        setWorkTime={setWorkTime}
-        setPauseTime={setPauseTime}
-      />
-      <InputTime
-        time={workTime[1]}
-        isWorking
-        indexOnChangeToAddValue={1}
-        setWorkTime={setWorkTime}
-        setPauseTime={setPauseTime}
-      />
-      <InputTime
-        time={workTime[2]}
-        isWorking
-        indexOnChangeToAddValue={2}
-        setWorkTime={setWorkTime}
-        setPauseTime={setPauseTime}
-      />
-    </label>
-    <h2 className='pause-time-title'>Pause time</h2>
-    <label className='pause-time'>
-      <InputTime
-        time={pauseTime[0]}
-        isWorking={false}
-        indexOnChangeToAddValue={0}
-        setWorkTime={setWorkTime}
-        setPauseTime={setPauseTime}
-      />
-      <InputTime
-        time={pauseTime[1]}
-        isWorking={false}
-        indexOnChangeToAddValue={1}
-        setWorkTime={setWorkTime}
-        setPauseTime={setPauseTime}
-      />
-      <InputTime
-        time={pauseTime[2]}
-        isWorking={false}
-        indexOnChangeToAddValue={2}
-        setWorkTime={setWorkTime}
-        setPauseTime={setPauseTime}
-      />
-    </label>
-    <div className={'buttons-time-form'}>
-      <button className='btn-form' type='submit'>
-        Start
-      </button>
-      <button className='btn-form' type='button' onClick={handlePauseTimer}>
-        Stop
-      </button>
-      <button className='btn-form' type='button' onClick={handleResetTimer}>
-        Reset
-      </button>
-    </div>
-  </form>
-)
+  handleContinueTimer,
+  isWorking,
+  isInPause,
+}) => {
+  const workTitleCss = isWorking ? 'is-working-title' : ''
+  const pauseTitleCss = isInPause ? 'is-in-pause-title' : 'black'
+
+  return (
+    <form className='time-form' onSubmit={onSubmit}>
+      <h2 className={`work-time-title ${workTitleCss}`}>Working</h2>
+      <label className='work-time'>
+        <InputTime
+          time={workTime[0]}
+          isWorking
+          indexOnChangeToAddValue={0}
+          setWorkTime={setWorkTime}
+          setPauseTime={setPauseTime}
+        />
+        <InputTime
+          time={workTime[1]}
+          isWorking
+          indexOnChangeToAddValue={1}
+          setWorkTime={setWorkTime}
+          setPauseTime={setPauseTime}
+        />
+        <InputTime
+          time={workTime[2]}
+          isWorking
+          indexOnChangeToAddValue={2}
+          setWorkTime={setWorkTime}
+          setPauseTime={setPauseTime}
+        />
+      </label>
+      <h2 className={`pause-time-title ${pauseTitleCss}`}>Pause</h2>
+      <label className='pause-time'>
+        <InputTime
+          time={pauseTime[0]}
+          isWorking={false}
+          indexOnChangeToAddValue={0}
+          setWorkTime={setWorkTime}
+          setPauseTime={setPauseTime}
+        />
+        <InputTime
+          time={pauseTime[1]}
+          isWorking={false}
+          indexOnChangeToAddValue={1}
+          setWorkTime={setWorkTime}
+          setPauseTime={setPauseTime}
+        />
+        <InputTime
+          time={pauseTime[2]}
+          isWorking={false}
+          indexOnChangeToAddValue={2}
+          setWorkTime={setWorkTime}
+          setPauseTime={setPauseTime}
+        />
+      </label>
+      <div className={'buttons-time-form'}>
+        <button className='btn-form' type='submit'>
+          Start
+        </button>
+        <button className='btn-form' type='button' onClick={handlePauseTimer}>
+          Stop
+        </button>
+        <button className='btn-form' type='button' onClick={handleContinueTimer}>
+          Continue
+        </button>
+        <button className='btn-form' type='button' onClick={handleResetTimer}>
+          Reset
+        </button>
+      </div>
+    </form>
+  )
+}
 
 export default TimerForm
