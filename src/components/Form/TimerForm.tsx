@@ -55,7 +55,7 @@ const TimerForm: React.FC<TimerFormProps> = ({
 }) => {
   const workTitleCss = isWorking ? 'is-working-title' : ''
   const pauseTitleCss = isInPause ? 'is-in-pause-title' : 'black'
-  const isWorkingBoxColor = isWorking || isInPause ? isWorking ? "#ffaf00" : isInPause ? '#0fbcce' : '' : '';
+  const isWorkingBoxColor = isWorking || isInPause ? isWorking ? '#ffaf00' : isInPause ? '#0fbcce' : '' : '';
 
   return (
     <form className='time-form' onSubmit={onSubmit} style={{color: isWorkingBoxColor, }}>
