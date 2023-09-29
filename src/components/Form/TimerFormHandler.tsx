@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from 'react'
 import TimerForm from './TimerForm.tsx'
-import pauseSound from '/assets/pause-music.mp3'
+import pauseSound from '/assets/your_new_morning_alarm.mp3'
 
 function TimerFormHandler() {
   const [workTime, setWorkTime] = useState<string[]>(['00', '00', '00'])
