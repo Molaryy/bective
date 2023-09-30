@@ -1,19 +1,21 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { TimerFormProps } from '../../types.ts'
 
+type InputTimeProps = {
+  time: string
+  isWorking: boolean
+  indexOnChangeToAddValue: number
+  setWorkTime: Dispatch<SetStateAction<string[]>>
+  setPauseTime: Dispatch<SetStateAction<string[]>>
+}
+
 function InputTime({
   time,
   isWorking,
   indexOnChangeToAddValue,
   setWorkTime,
   setPauseTime,
-}: {
-  time: string
-  isWorking: boolean
-  indexOnChangeToAddValue: number
-  setWorkTime: Dispatch<SetStateAction<string[]>>
-  setPauseTime: Dispatch<SetStateAction<string[]>>
-}) {
+}: InputTimeProps) {
   return (
     <input
       value={time}

@@ -1,13 +1,15 @@
 import { FormEvent, useEffect, useState } from 'react'
 import TimerForm from './TimerForm.tsx'
-import pauseSound from '/assets/your_new_morning_alarm.mp3'
+import pauseSound from '/assets/5-minutes-lofi.mp3'
+import workSound from '/assets/Wakey-Wakey.mp3'
 
-function TimerFormHandler() {
+const TimerFormHandler = () => {
   const [workTime, setWorkTime] = useState<string[]>(['00', '00', '00'])
   const [pauseTime, setPauseTime] = useState<string[]>(['00', '00', '00'])
   const [isWorkTimerRunning, setIsWorkTimerRunning] = useState(false)
   const [isPauseTimerRunning, setIsPauseTimerRunning] = useState(false)
-  const [startPauseSound, setStartSongWork] = useState(false)
+  const [startPauseSound, setStartPauseSound] = useState(false)
+  const [startWorkSound, setStartWorkSound] = useState<boolean[]>([false, false])
   const [storeWorkTime, setStoreWorkTime] = useState<string[] | null>(null)
   const [storePauseTime, setStorePauseTime] = useState<string[] | null>(null)
 
@@ -22,7 +24,7 @@ function TimerFormHandler() {
   const handlePauseTimer = (): void => {
     setIsWorkTimerRunning(false)
     setIsPauseTimerRunning(false)
-    setStartSongWork(false)
+    setStartPauseSound(false)
   }
 
   const handleResetTimer = (): void => {
@@ -34,7 +36,7 @@ function TimerFormHandler() {
   const handleContinueTimer = (): void => {
     setIsWorkTimerRunning(workTime.toString() != storeWorkTime?.toString())
     setIsPauseTimerRunning(pauseTime.toString() != storePauseTime?.toString())
-    !startPauseSound ? setStartSongWork(true) : setStartSongWork(false)
+    !startPauseSound ? setStartPauseSound(true) : setStartPauseSound(false)
   }
 
   useEffect(() => {
@@ -48,10 +50,16 @@ function TimerFormHandler() {
     }
 
     const timeInterval: number = setInterval(() => {
+      if (isPauseTimerRunning) {
+        setStartWorkSound([true, false])
+      }
+      if (startWorkSound[0] && isWorkTimerRunning) {
+        setStartWorkSound([true, true])
+      }
       if (totalSeconds <= 0) {
         clearInterval(timeInterval)
         setIsWorkTimerRunning(!isWorkTimerRunning)
-        setStartSongWork(isWorkTimerRunning)
+        setStartPauseSound(isWorkTimerRunning)
         setIsPauseTimerRunning(isWorkTimerRunning)
         if (storeWorkTime && storePauseTime) {
           setWorkTime(storeWorkTime)
@@ -89,6 +97,11 @@ function TimerFormHandler() {
         isInPause={isPauseTimerRunning}
       />
       {startPauseSound ? <audio controls src={pauseSound} autoPlay hidden /> : <></>}
+      {startWorkSound[0] && startWorkSound[1] ? (
+        <audio controls src={workSound} autoPlay hidden />
+      ) : (
+        <></>
+      )}
     </>
   )
 }
