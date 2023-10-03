@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from 'react'
 import TimerForm from './TimerForm.tsx'
 import pauseSound from '/assets/5-minutes-lofi.mp3'
 import workSound from '/assets/Wakey-Wakey.mp3'
+import BreakTime from '../BreakTime.tsx'
 
 const TimerFormHandler = () => {
   const [workTime, setWorkTime] = useState<string[]>(['00', '00', '00'])
@@ -12,6 +13,7 @@ const TimerFormHandler = () => {
   const [startWorkSound, setStartWorkSound] = useState<boolean[]>([false, false])
   const [storeWorkTime, setStoreWorkTime] = useState<string[] | null>(null)
   const [storePauseTime, setStorePauseTime] = useState<string[] | null>(null)
+  const [alertNotification, setAlertNotification] = useState(false)
 
   const handleFormSubmit = (event: FormEvent): void => {
     event.preventDefault()
@@ -36,7 +38,7 @@ const TimerFormHandler = () => {
   const handleContinueTimer = (): void => {
     setIsWorkTimerRunning(workTime.toString() != storeWorkTime?.toString())
     setIsPauseTimerRunning(pauseTime.toString() != storePauseTime?.toString())
-    !startPauseSound ? setStartPauseSound(true) : setStartPauseSound(false)
+    isWorkTimerRunning ? setStartPauseSound(false) : setStartPauseSound(true)
   }
 
   useEffect(() => {
@@ -47,6 +49,13 @@ const TimerFormHandler = () => {
 
     if (!isWorkTimerRunning && !isPauseTimerRunning) {
       return
+    }
+
+    if (alertNotification) {
+      setAlertNotification(false)
+    }
+    if (isPauseTimerRunning && !alertNotification) {
+      setAlertNotification(true)
     }
 
     const timeInterval: number = setInterval(() => {
@@ -96,7 +105,14 @@ const TimerFormHandler = () => {
         isWorking={isWorkTimerRunning}
         isInPause={isPauseTimerRunning}
       />
-      {startPauseSound ? <audio controls src={pauseSound} autoPlay hidden /> : <></>}
+      {startPauseSound ? (
+        <>
+          <BreakTime />
+          <audio controls src={pauseSound} autoPlay hidden />
+        </>
+      ) : (
+        <></>
+      )}
       {startWorkSound[0] && startWorkSound[1] ? (
         <audio controls src={workSound} autoPlay hidden />
       ) : (
