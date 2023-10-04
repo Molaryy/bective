@@ -17,16 +17,17 @@ const TimerFormHandler = () => {
 
   const handleFormSubmit = (event: FormEvent): void => {
     event.preventDefault()
-    setStoreWorkTime(workTime)
-    setStorePauseTime(pauseTime)
-    setIsWorkTimerRunning(true)
-    setIsPauseTimerRunning(false)
+    setStoreWorkTime(workTime);
+    setStorePauseTime(pauseTime);
+    setIsWorkTimerRunning(true);
+    setIsPauseTimerRunning(false);
   }
 
   const handlePauseTimer = (): void => {
-    setIsWorkTimerRunning(false)
-    setIsPauseTimerRunning(false)
-    setStartPauseSound(false)
+    setIsWorkTimerRunning(false);
+    setIsPauseTimerRunning(false);
+    setStartPauseSound(false);
+    setStartWorkSound([false, false]);
   }
 
   const handleResetTimer = (): void => {
@@ -36,8 +37,11 @@ const TimerFormHandler = () => {
   }
 
   const handleContinueTimer = (): void => {
-    setIsWorkTimerRunning(workTime.toString() != storeWorkTime?.toString())
-    setIsPauseTimerRunning(pauseTime.toString() != storePauseTime?.toString())
+    setIsWorkTimerRunning(workTime.toString() != storeWorkTime?.toString());
+    setStartWorkSound([false, workTime.toString() != storeWorkTime?.toString()]);
+    setIsPauseTimerRunning(pauseTime.toString() != storePauseTime?.toString());
+    console.log(pauseTime.toString() != storePauseTime?.toString());
+    setStartPauseSound(pauseTime.toString() != storePauseTime?.toString());
     isWorkTimerRunning ? setStartPauseSound(false) : setStartPauseSound(true)
   }
 
@@ -54,6 +58,7 @@ const TimerFormHandler = () => {
     if (alertNotification) {
       setAlertNotification(false)
     }
+
     if (isPauseTimerRunning && !alertNotification) {
       setAlertNotification(true)
     }
@@ -62,18 +67,22 @@ const TimerFormHandler = () => {
       if (isPauseTimerRunning) {
         setStartWorkSound([true, false])
       }
+    
       if (startWorkSound[0] && isWorkTimerRunning) {
         setStartWorkSound([true, true])
       }
+    
       if (totalSeconds <= 0) {
         clearInterval(timeInterval)
         setIsWorkTimerRunning(!isWorkTimerRunning)
         setStartPauseSound(isWorkTimerRunning)
         setIsPauseTimerRunning(isWorkTimerRunning)
+
         if (storeWorkTime && storePauseTime) {
           setWorkTime(storeWorkTime)
           setPauseTime(storePauseTime)
         }
+
       } else {
         totalSeconds -= 1
         const hours: number = Math.floor(totalSeconds / 3600)
