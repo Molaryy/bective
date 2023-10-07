@@ -26,7 +26,7 @@ const GetTodoButton = () => {
 const GetTodo = () => {
   return (
     <>
-      <textarea className={'input-todo'} maxLength={90} />
+      <textarea className={'input-todo'} maxLength={90} placeholder={'Memorize my notes'} />
       <GetTodoButton />
     </>
   );

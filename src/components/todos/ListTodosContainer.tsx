@@ -1,46 +1,47 @@
 import '../../styles/ListTodos.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+const todoValues = {
+  pixelGap: 15,
+  littleSizeText: 50,
+  bigSizeText: 75,
+};
 
 const ListTodosContainer = () => {
-  const [heightBlurBg, setHeightBlurBg] = useState(500);
-  const [settingStyleIsDone, setSettingStyleIsDone] = useState(true);
+  const [heightBlurBg, setHeightBlurBg] = useState(0);
   const todos = [
     {
-      text: 'Faire la vaisselle gr grg jkorhuipg erhigj',
+      text: 'Faire la v f',
     },
     {
-      text: 'Faire la vaisselle gr grg jkorhuipg erhigj',
+      text: 'Faire la v f',
     },
     {
-      text: 'Faire la vaisselle gr grg jkorhuipg erhigj',
+      text: 'Faire la v f',
     },
     {
-      text: 'Faire la vaisselle gr grg jkorhuipg erhigj',
+      text: 'FairefewlavfFairefewla v fFaire few la v fFaire few la v fFaire few la v fFaire few la v fFaire few la v  e gergf',
     },
     {
-      text: 'Faire la vaisselle gr grg jkorhuipg erhigj',
-    },
-    {
-      text: 'Faire la vaisselle gr grg jkorhuipg erhigj',
-    },
-    {
-      text: 'Faire la vaisselle gr grg jkorhuipg erhigj',
+      text: 'FairefewlavfFairefewla v fFaire few la v fFaire few la v fFaire few la v fFaire few la v fFaire few la v  e gergf',
     },
   ];
 
-  const expandBlurBg = () => {
-    if (!settingStyleIsDone) return;
-    let heightCounter = 500;
+  useEffect(() => {
+    const expandBlurBg = () => {
+      let heightCounter = todoValues.pixelGap;
 
-    todos.forEach((todo) => {
-      todo.text.length <= 50 ? (heightCounter += 80 - 15) : (heightCounter += 105);
-    });
-    setHeightBlurBg(heightCounter);
-    setSettingStyleIsDone(false);
-  };
-  expandBlurBg();
+      todos.forEach((todo) => {
+        todo.text.length >= todoValues.littleSizeText
+          ? (heightCounter += todoValues.bigSizeText)
+          : (heightCounter += todoValues.littleSizeText);
+        heightCounter += todoValues.pixelGap;
+        setHeightBlurBg(heightCounter);
+      });
+    };
+    expandBlurBg();
+  }, [heightBlurBg]);
 
-  console.log(heightBlurBg);
   return (
     <div>
       <div className={'todos-title-div'}>
@@ -54,7 +55,7 @@ const ListTodosContainer = () => {
               <div
                 key={index}
                 className={'todo-text-element'}
-                style={{ overflow: 'hidden', height: todo.text.length > 50 ? '75px' : '50px' }}
+                style={{ overflow: 'hidden', height: todo.text.length >= 50 ? '75px' : '50px' }}
               >
                 <p>{todo.text}</p>
               </div>
