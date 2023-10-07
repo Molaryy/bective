@@ -53,6 +53,7 @@ const TimerFormHandler = () => {
     if (!isWorkTimerRunning && !isPauseTimerRunning) {
       return;
     }
+    console.log('use effect = ', startPauseSound, '\n\n');
 
     if (alertNotification) {
       setAlertNotification(false);
@@ -98,6 +99,7 @@ const TimerFormHandler = () => {
     return () => clearInterval(timeInterval);
   }, [isPauseTimerRunning, isWorkTimerRunning, pauseTime, storePauseTime, storeWorkTime, workTime]);
 
+  console.log('final result = ', startPauseSound, '\n\n');
   return (
     <>
       <TimerForm
