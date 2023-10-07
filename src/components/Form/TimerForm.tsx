@@ -1,13 +1,13 @@
-import React, { Dispatch, SetStateAction } from 'react'
-import { TimerFormProps } from '../../types.ts'
+import React, { Dispatch, SetStateAction } from 'react';
+import { TimerFormProps } from '../../types.ts';
 
 type InputTimeProps = {
-  time: string
-  isWorking: boolean
-  indexOnChangeToAddValue: number
-  setWorkTime: Dispatch<SetStateAction<string[]>>
-  setPauseTime: Dispatch<SetStateAction<string[]>>
-}
+  time: string;
+  isWorking: boolean;
+  indexOnChangeToAddValue: number;
+  setWorkTime: Dispatch<SetStateAction<string[]>>;
+  setPauseTime: Dispatch<SetStateAction<string[]>>;
+};
 
 function InputTime({
   time,
@@ -22,25 +22,25 @@ function InputTime({
       className={isWorking ? 'work-time-input' : 'pause-time-input'}
       type='number'
       onChange={(event) => {
-        const { value } = event.target
+        const { value } = event.target;
         if (isWorking) {
           setWorkTime((prevState) => [
             indexOnChangeToAddValue === 0 ? value : prevState[0],
             indexOnChangeToAddValue === 1 ? value : prevState[1],
             indexOnChangeToAddValue === 2 ? value : prevState[2],
-          ])
+          ]);
         } else {
           setPauseTime((prevState) => [
             indexOnChangeToAddValue === 0 ? value : prevState[0],
             indexOnChangeToAddValue === 1 ? value : prevState[1],
             indexOnChangeToAddValue === 2 ? value : prevState[2],
-          ])
+          ]);
         }
       }}
       max={indexOnChangeToAddValue === 0 ? 24 : 60}
       min={0}
     />
-  )
+  );
 }
 
 const TimerForm: React.FC<TimerFormProps> = ({
@@ -55,12 +55,18 @@ const TimerForm: React.FC<TimerFormProps> = ({
   isWorking,
   isInPause,
 }) => {
-  const workTitleCss = isWorking ? 'is-working-title' : ''
-  const pauseTitleCss = isInPause ? 'is-in-pause-title' : 'black'
-  const isWorkingBoxColor = isWorking || isInPause ? isWorking ? '#ffaf00' : isInPause ? '#0fbcce' : '' : '';
+  const workTitleCss = isWorking ? 'is-working-title' : '';
+  const pauseTitleCss = isInPause ? 'is-in-pause-title' : 'black';
+  const isWorkingBoxColor =
+    isWorking || isInPause ? (isWorking ? '#ffaf00' : isInPause ? '#0fbcce' : '') : '';
+  const boxShadow = isWorking || isInPause ? '0 5px 5px' : '0 0px 0px';
 
   return (
-    <form className='time-form' onSubmit={onSubmit} style={{color: isWorkingBoxColor, }}>
+    <form
+      className='time-form'
+      onSubmit={onSubmit}
+      style={{ color: isWorkingBoxColor, boxShadow: boxShadow }}
+    >
       <h2 className={`work-time-title ${workTitleCss}`}>Working</h2>
       <label className='work-time'>
         <InputTime
@@ -124,7 +130,7 @@ const TimerForm: React.FC<TimerFormProps> = ({
         </button>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default TimerForm
+export default TimerForm;

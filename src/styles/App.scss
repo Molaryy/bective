@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,500&display=swap');
+@import url('https://fonts.googleapis.com/c<>ss2?family=Poppins:ital,wght@1,500&display=swap');
 
 body {
   padding: 0;
@@ -8,13 +8,12 @@ body {
 }
 
 .time-form {
-  margin-top: 15rem;
-  margin-left: 10rem;
+  margin-top: 10rem;
+  margin-left: 10%;
   width: 420px;
   height: 400px;
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 15px 15px;
   transition: all 0.3s ease 0s;
 }
 
@@ -69,6 +68,7 @@ body {
 
 .buttons-time-form {
   .btn-form {
+    cursor: pointer;
     width: 60px;
     height: 35px;
     margin-left: 30px;
@@ -100,35 +100,4 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-.navbar {
-  list-style: none;
-  display: flex;
-  background-color: #ffffff;
-  height: 35px;
-  width: 100%;
-  font-weight: 500;
-  justify-content: space-between;
-  align-items: center;
-
-  .navbar-elements-links {
-    cursor: pointer;
-    list-style: none;
-    color: black;
-    margin-left: 40rem;
-  }
-
-  .navbar-elements-links .linkNav {
-    transition: all 0.3s ease 0s;
-    display: inline-block;
-    padding: 0 15px;
-    margin: 0 15px;
-  }
-
-  .navbar-elements-links .linkNav:hover {
-    color: #fcfcfc;
-    background-color: #000000;
-    border-radius: 5px;
-  }
 }
