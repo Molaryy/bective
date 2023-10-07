@@ -14,6 +14,7 @@ const TimerFormHandler = () => {
   const [storeWorkTime, setStoreWorkTime] = useState<string[] | null>(null);
   const [storePauseTime, setStorePauseTime] = useState<string[] | null>(null);
   const [alertNotification, setAlertNotification] = useState(false);
+  const [canContinue, setCanContinue] = useState(false);
 
   const handleFormSubmit = (event: FormEvent): void => {
     event.preventDefault();
@@ -24,6 +25,9 @@ const TimerFormHandler = () => {
   };
 
   const handlePauseTimer = (): void => {
+    if (!isWorkTimerRunning && !isPauseTimerRunning) return;
+
+    setCanContinue(true);
     setIsWorkTimerRunning(false);
     setIsPauseTimerRunning(false);
     setStartPauseSound(false);
@@ -31,17 +35,19 @@ const TimerFormHandler = () => {
   };
 
   const handleResetTimer = (): void => {
-    console.log('3');
     setIsWorkTimerRunning(false);
     setWorkTime(['00', '25', '00']);
     setPauseTime(['00', '05', '00']);
   };
 
   const handleContinueTimer = (): void => {
+    if (!canContinue) return;
+
     setIsWorkTimerRunning(workTime.toString() != storeWorkTime?.toString());
     setStartWorkSound([false, workTime.toString() != storeWorkTime?.toString()]);
     setIsPauseTimerRunning(pauseTime.toString() != storePauseTime?.toString());
     setStartPauseSound(pauseTime.toString() != storePauseTime?.toString());
+    setCanContinue(false);
   };
 
   useEffect(() => {
