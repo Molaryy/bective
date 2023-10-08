@@ -49,6 +49,7 @@
   overflow: hidden;
   width: 360px;
   text-align: center;
+  cursor: pointer;
 
   p {
     margin-left: 5px;
@@ -75,10 +76,20 @@
   cursor: pointer;
   margin-top: 1.5rem;
   margin-left: 1%;
-  line-height: 0px;
+  line-height: 0;
 }
 
 .todo-input-form {
   width: 420px;
   margin-left: 10%;
+}
+
+.todo-custom-settings-container {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background-color: white;
+  border-radius: 10px;
+  margin-left: 53%;
+  top: 20rem;
 }

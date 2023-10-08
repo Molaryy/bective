@@ -54,6 +54,10 @@ const ListTodosContainer = ({ todos }: { todos: TodoList[] }) => {
     expandBlurBg();
   }, [heightBlurBg, todos]);
 
+  const openTodoSettings = (key: number) => {
+    console.log(key);
+  };
+
   return (
     <div>
       <TodosListHeader setHideList={setHideList} hideList={hideList} />
@@ -73,6 +77,7 @@ const ListTodosContainer = ({ todos }: { todos: TodoList[] }) => {
                   height: todo.text.length >= 50 ? '75px' : '50px',
                   display: hideList ? 'none' : '',
                 }}
+                onClick={() => openTodoSettings(index)}
               >
                 <p>{todo.text}</p>
               </div>
