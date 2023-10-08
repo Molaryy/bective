@@ -1,5 +1,5 @@
 import '../../styles/ListTodos.scss';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { TodoList } from '../../types.ts';
 
 const todoValues = {
@@ -8,8 +8,31 @@ const todoValues = {
   bigSizeText: 75,
 };
 
+const TodosListHeader = ({
+  setHideList,
+  hideList,
+}: {
+  setHideList: Dispatch<SetStateAction<boolean>>;
+  hideList: boolean;
+}) => {
+  const [bgColor, setBgColor] = useState('rgb(72,72,65)');
+
+  return (
+    <div
+      className={'todos-title-header'}
+      style={{ backgroundColor: bgColor }}
+      onMouseOver={() => setBgColor('rgb(133, 122, 122)')}
+      onMouseLeave={() => setBgColor('rgb(72,72,65)')}
+      onClick={() => setHideList(!hideList)}
+    >
+      <h2>Todos</h2>
+    </div>
+  );
+};
+
 const ListTodosContainer = ({ todos }: { todos: TodoList[] }) => {
   const [heightBlurBg, setHeightBlurBg] = useState(0);
+  const [hideList, setHideList] = useState(false);
 
   useEffect(() => {
     if (todos.length <= 0) {
@@ -31,24 +54,25 @@ const ListTodosContainer = ({ todos }: { todos: TodoList[] }) => {
     expandBlurBg();
   }, [heightBlurBg, todos]);
 
-  // TODO
-  // - Si on click sur Todo on peut cacher la vue des Todos
-  // - Passer en parametres l'array Todos
-
   return (
     <div>
-      <div className={'todos-title-div'}>
-        <h2>Todos</h2>
-      </div>
+      <TodosListHeader setHideList={setHideList} hideList={hideList} />
       <div className={'todos-list-container'}>
-        <div className={'todos-list'} style={{ height: heightBlurBg + 'px' }}></div>
+        <div
+          className={'todos-list'}
+          style={{ height: heightBlurBg + 'px', display: hideList ? 'none' : '' }}
+        ></div>
         <div className={'todos-list-text'}>
           {todos.map((todo, index) => {
             return (
               <div
                 key={index}
                 className={'todo-text-element'}
-                style={{ overflow: 'hidden', height: todo.text.length >= 50 ? '75px' : '50px' }}
+                style={{
+                  overflow: 'hidden',
+                  height: todo.text.length >= 50 ? '75px' : '50px',
+                  display: hideList ? 'none' : '',
+                }}
               >
                 <p>{todo.text}</p>
               </div>

@@ -32,7 +32,7 @@ const GetTodoButton = () => {
         setColorText('rgb(0,0,0)');
       }}
     >
-      <h3>Add todo</h3>
+      <h3>Create todo</h3>
     </button>
   );
 };
@@ -48,6 +48,10 @@ const GetTodo = ({
 
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    if (inputValue === '' || inputValue === undefined) {
+      setInputValue('');
+      return;
+    }
     setTodos([...todos, { text: inputValue }]);
     setInputValue('');
   };
