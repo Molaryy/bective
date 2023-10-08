@@ -62,7 +62,6 @@
   height: 50px;
   border-radius: 10px;
   transition: all 0.3s ease 0s;
-  margin-left: 10%;
   line-height: 50px;
   cursor: pointer;
   font-size: 17px;
@@ -74,8 +73,12 @@
   height: 40px;
   border-radius: 10px;
   transition: all 0.3s ease 0s;
-  margin-left: 10.2%;
   text-align: center;
-  line-height: 40px;
   cursor: pointer;
+  margin-top: 1.5rem;
+}
+
+.todo-input-form {
+  width: 420px;
+  margin-left: 10%;
 }

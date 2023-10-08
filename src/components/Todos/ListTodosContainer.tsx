@@ -1,5 +1,6 @@
 import '../../styles/ListTodos.scss';
 import { useEffect, useState } from 'react';
+import { TodoList } from '../../types.ts';
 
 const todoValues = {
   pixelGap: 15,
@@ -7,27 +8,15 @@ const todoValues = {
   bigSizeText: 75,
 };
 
-const ListTodosContainer = () => {
+const ListTodosContainer = ({ todos }: { todos: TodoList[] }) => {
   const [heightBlurBg, setHeightBlurBg] = useState(0);
-  const todos = [
-    {
-      text: 'Faire la v f',
-    },
-    {
-      text: 'Faire la v f',
-    },
-    {
-      text: 'Faire la v f',
-    },
-    {
-      text: 'FairefewlavfFairefewla v fFaire few la v fFaire few la v fFaire few la v fFaire few la v fFaire few la v  e gergf',
-    },
-    {
-      text: 'FairefewlavfFairefewla v fFaire few la v fFaire few la v fFaire few la v fFaire few la v fFaire few la v  e gergf',
-    },
-  ];
 
   useEffect(() => {
+    if (todos.length <= 0) {
+      setHeightBlurBg(0);
+      return;
+    }
+
     const expandBlurBg = () => {
       let heightCounter = todoValues.pixelGap;
 
@@ -40,7 +29,11 @@ const ListTodosContainer = () => {
       });
     };
     expandBlurBg();
-  }, [heightBlurBg]);
+  }, [heightBlurBg, todos]);
+
+  // TODO
+  // - Si on click sur Todo on peut cacher la vue des Todos
+  // - Passer en parametres l'array Todos
 
   return (
     <div>
