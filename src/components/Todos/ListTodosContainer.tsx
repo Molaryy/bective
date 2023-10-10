@@ -69,7 +69,9 @@ const ListTodosContainer = ({ todos }: { todos: TodoList[] }) => {
 		expandBlurBg();
 	}, [heightBlurBg, todos]);
 
+
 	const openTodoSettings = (key: number) => {
+		console.log('Salut')
 		settingsOpened[key] = true;
 	};
 
@@ -83,15 +85,15 @@ const ListTodosContainer = ({ todos }: { todos: TodoList[] }) => {
 				></div>
 				<div className={'todos-list-text'}>
 					{todos.map((todo, index) => {
-						const test = settingsOpened[index];
-						return (
-							test ? (
+						console.log(settingsOpened)
+						return ( 
+							settingsOpened[index] ? (
 								<div
 									key={index}
 									className={'todo-text-element'}
 									style={{
 										overflow: 'hidden',
-										height: todo.text.length >= 50 ? '75px' : '50px',
+										height: todo.text.length >= 50 ? '75px' : '150px',
 										display: hideList ? 'none' : '',
 									}}
 									onClick={() => openTodoSettings(index)}
