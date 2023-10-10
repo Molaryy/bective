@@ -71,8 +71,7 @@ const ListTodosContainer = ({ todos }: { todos: TodoList[] }) => {
 
 
 	const openTodoSettings = (key: number) => {
-		console.log('Salut')
-		settingsOpened[key] = true;
+		settingsOpened[key] = settingsOpened[key] ? false : true;
 	};
 
 	return (
