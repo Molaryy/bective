@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func router(r *gin.Engine) {
+func outer(r *gin.Engine) {
 	r.GET("/", helloController)
 	r.POST("/auth", auth.AuthUser)
 }
