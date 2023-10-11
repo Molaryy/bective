@@ -59,7 +59,7 @@ const TimerForm: React.FC<TimerFormProps> = ({
   const pauseTitleCss = isInPause ? 'is-in-pause-title' : 'black';
   const isWorkingBoxColor =
     isWorking || isInPause ? (isWorking ? '#ffaf00' : isInPause ? '#0fbcce' : '') : '';
-  const boxShadow = isWorking || isInPause ? '0 5px 5px' : '0 0px 0px';
+  const boxShadow = isWorking || isInPause ? '.gitignore 5px 5px' : '.gitignore 0px 0px';
 
   return (
     <form

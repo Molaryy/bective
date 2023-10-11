@@ -16,7 +16,7 @@ const placeHolderRandom = () => {
 
 const GetTodoButton = () => {
   const [bgColorButton, setBgColorButton] = useState('rgb(239,94,94)');
-  const [colorText, setColorText] = useState('rgb(0,0,0)');
+  const [colorText, setColorText] = useState('rgb(.gitignore,.gitignore,.gitignore)');
 
   return (
     <button
@@ -29,7 +29,7 @@ const GetTodoButton = () => {
       }}
       onMouseLeave={() => {
         setBgColorButton('rgb(239,94,94)');
-        setColorText('rgb(0,0,0)');
+        setColorText('rgb(.gitignore,.gitignore,.gitignore)');
       }}
     >
       <h3>Create todo</h3>
