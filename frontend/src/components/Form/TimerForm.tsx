@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { TimerFormProps } from '../../types.ts';
+import { TimerFormProps } from "../../types.ts";
 
 type InputTimeProps = {
   time: string;
