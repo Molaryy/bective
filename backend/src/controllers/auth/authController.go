@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func AuthUser(c *gin.Context) {
+func AuthController(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "do ypu really wanna authenticate",
 	})

@@ -1,4 +1,4 @@
-import "../../styles/ListTodos.scss";
+import '../../styles/ListTodos.scss';
 import { Dispatch, FormEvent, SetStateAction, useState } from 'react';
 import { TodoList } from '../../types.ts';
 
@@ -29,7 +29,7 @@ const GetTodoButton = () => {
       }}
       onMouseLeave={() => {
         setBgColorButton('rgb(239,94,94)');
-        setColorText('rgb(49,45,45)');
+        setColorText('rgb(.gitignore,.gitignore,.gitignore)');
       }}
     >
       <h3>Create todo</h3>

@@ -1,10 +1,12 @@
 import { FormEvent, useEffect, useState } from 'react';
 import TimerForm from './TimerForm.tsx';
-import BreakTime from "../BreakTime.tsx";
+import pauseSound from '/assets/5-minutes-lofi.mp3';
+import workSound from '/assets/Wakey-Wakey.mp3';
+import BreakTime from '../BreakTime.tsx';
 
 const TimerFormHandler = () => {
-  const [workTime, setWorkTime] = useState<string[]>(['00', '00', '05']);
-  const [pauseTime, setPauseTime] = useState<string[]>(['00', '00', '05']);
+  const [workTime, setWorkTime] = useState<string[]>(['00', '25', '00']);
+  const [pauseTime, setPauseTime] = useState<string[]>(['00', '05', '00']);
   const [isWorkTimerRunning, setIsWorkTimerRunning] = useState(false);
   const [isPauseTimerRunning, setIsPauseTimerRunning] = useState(false);
   const [startPauseSound, setStartPauseSound] = useState(false);
@@ -66,7 +68,7 @@ const TimerFormHandler = () => {
       setAlertNotification(true);
     }
 
-    const timeInterval: NodeJS.Timeout = setInterval(() => {
+    const timeInterval: number = setInterval(() => {
       if (isPauseTimerRunning) {
         setStartWorkSound([true, false]);
       }
@@ -100,7 +102,7 @@ const TimerFormHandler = () => {
     }, 1000);
 
     return () => clearInterval(timeInterval);
-  }, [alertNotification, isPauseTimerRunning, isWorkTimerRunning, pauseTime, startWorkSound, storePauseTime, storeWorkTime, workTime]);
+  }, [isPauseTimerRunning, isWorkTimerRunning, pauseTime, storePauseTime, storeWorkTime, workTime]);
 
   return (
     <>
@@ -119,14 +121,10 @@ const TimerFormHandler = () => {
       {startPauseSound ? (
         <>
           <BreakTime />
-          <audio controls autoPlay hidden >
-            <source src={'/audio/5-minutes-lofi.mp3'} type={'audio/mpeg'}/>
-          </audio>
+          <audio controls src={pauseSound} autoPlay hidden />
         </>
       ) : startWorkSound[0] && startWorkSound[1] ? (
-        <audio controls autoPlay hidden>
-          <source src={'/audio/Wakey-Wakey.mp3'} type={'audio/mpeg'}/>
-        </audio>
+        <audio controls src={workSound} autoPlay hidden />
       ) : (
         <></>
       )}
