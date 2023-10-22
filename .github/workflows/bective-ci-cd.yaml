@@ -34,5 +34,3 @@ jobs:
       - name: build backend
         run: |
           ls
-          cd backend
-          go build -v
