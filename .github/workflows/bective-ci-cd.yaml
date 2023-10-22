@@ -30,7 +30,12 @@ jobs:
     needs: [lint-front]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-go@v4
+      - uses: actions/checkout@v3
+      - name: set up golang
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21.3'
       - name: build backend
         run: |
-          ls
+          cd backend
+          go build -v
