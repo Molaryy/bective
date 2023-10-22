@@ -7,22 +7,31 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  build-front:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: build
+      - name: build frontend
         run: |
           cd frontend
           yarn install
           yarn build
-  lint:
-    needs: [build]
+  lint-front:
+    needs: [build-front]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: lint
+      - name: lint frontend
         run: |
           cd frontend
           yarn install
           yarn lint
+  build-back:
+    needs: [lint-front]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v4
+      - name: build backend
+        run: |
+          cd backend
+          go build -v
