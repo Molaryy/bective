@@ -7,10 +7,19 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+frontend/node_modules
+frontend/dist
+frontend/dist-ssr
+frontend/*.local
+frontend/.next
+
+
+# postgres data folder
+data
+
+
+.env
+.env.local
 
 # Editor directories and files
 .vscode/*

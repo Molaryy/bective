@@ -5,8 +5,8 @@ import workSound from '/assets/Wakey-Wakey.mp3';
 import BreakTime from '../BreakTime.tsx';
 
 const TimerFormHandler = () => {
-  const [workTime, setWorkTime] = useState<string[]>(['00', '00', '05']);
-  const [pauseTime, setPauseTime] = useState<string[]>(['00', '00', '05']);
+  const [workTime, setWorkTime] = useState<string[]>(['00', '25', '00']);
+  const [pauseTime, setPauseTime] = useState<string[]>(['00', '05', '00']);
   const [isWorkTimerRunning, setIsWorkTimerRunning] = useState(false);
   const [isPauseTimerRunning, setIsPauseTimerRunning] = useState(false);
   const [startPauseSound, setStartPauseSound] = useState(false);
@@ -123,10 +123,7 @@ const TimerFormHandler = () => {
           <BreakTime />
           <audio controls src={pauseSound} autoPlay hidden />
         </>
-      ) : (
-        <></>
-      )}
-      {startWorkSound[0] && startWorkSound[1] ? (
+      ) : startWorkSound[0] && startWorkSound[1] ? (
         <audio controls src={workSound} autoPlay hidden />
       ) : (
         <></>
