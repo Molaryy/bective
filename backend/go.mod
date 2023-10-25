@@ -1,4 +1,4 @@
-module bective
+module github.com/Molaryy/bective
 
 go 1.21.0
 

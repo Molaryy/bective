@@ -1,9 +1,8 @@
 package types
 
 import (
-	"bective/utils"
 	"encoding/json"
-	"fmt"
+	"github.com/Molaryy/bective/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"net/http"
@@ -13,9 +12,11 @@ import (
 var todos Todos
 
 type Todo struct {
-	Id          int    `json:"id"`
+	Id          int    `json:"id" gorm:"primaryKey"`
 	Title       string `json:"title"`
 	Description string `json:"description"`
+	StartData   string `json:"startData"`
+	EndData     string `json:"endData"`
 }
 
 type Todos struct {
@@ -28,19 +29,11 @@ func (t *Todo) GetTodos(c *gin.Context) {
 	c.JSON(http.StatusOK, todos.FileToTodos(fileBytes))
 }
 
-func (t *Todo) CreateTodo(c *gin.Context) {
+func (h TodoHandler) CreateTodo(c *gin.Context) {
 	fileBytes := utils.JsonToBytes("data/data.json")
 	statusCode := http.StatusOK
 	message := "You just created a todo"
 	var todo Todo
-	file, err := os.OpenFile("data/data.json", os.O_WRONLY, 4)
-	var todosBytes []byte
-
-	defer file.Close()
-	if err != nil {
-		statusCode = http.StatusServiceUnavailable
-		message = "Couldn't access data"
-	}
 
 	if len(todos.Todos) == 0 {
 		utils.CheckError(json.Unmarshal(fileBytes, &todos))
@@ -52,13 +45,9 @@ func (t *Todo) CreateTodo(c *gin.Context) {
 	}
 
 	todos.Todos = append(todos.Todos, todo)
-	todosBytes, errJSON := json.Marshal(todos)
-	if errJSON != nil {
-		statusCode = http.StatusServiceUnavailable
-		message = "Couldn't access data"
-	}
-	fmt.Println(todos.Todos)
-	file.Write(todosBytes)
+
+	file, _ := json.MarshalIndent(todos.Todos, "", "")
+	utils.CheckError(os.WriteFile("data/data.json", file, 0644))
 
 	c.JSON(statusCode, gin.H{
 		"message": message,
