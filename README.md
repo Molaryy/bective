@@ -10,10 +10,12 @@ More than a normal promodoro app.
 
 ### Installation
 ```bash
+cd frontend
 yarn install
 yarn dev
 ```
 ### Run bective 
 ```bash
+cd frontend
 yarn lint 
 ```
