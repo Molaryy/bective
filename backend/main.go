@@ -1,12 +1,15 @@
 package main
 
-func main() {
-	InitDb()
-	/*	r := gin.Default()
-		router(r)
-		err := r.Run()
+import (
+	"github.com/Molaryy/bective/db"
+	"github.com/Molaryy/bective/utils"
+	"github.com/gin-gonic/gin"
+)
 
-		if err != nil {
-			return
-		}*/
+func main() {
+	db.InitDb()
+
+	r := gin.Default()
+	router(r)
+	utils.CheckError(r.Run())
 }
