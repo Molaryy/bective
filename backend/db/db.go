@@ -1,8 +1,8 @@
-package main
+package db
 
 import (
 	"fmt"
-	"github.com/Molaryy/bective/types"
+	"github.com/Molaryy/bective/models"
 	"github.com/Molaryy/bective/utils"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -26,6 +26,6 @@ func InitDb() *gorm.DB {
 		log.Fatalln(err)
 	}
 
-	utils.CheckError(db.AutoMigrate(&types.Todo{}))
+	utils.CheckError(db.AutoMigrate(&models.Todo{}))
 	return db
 }
