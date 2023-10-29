@@ -3,19 +3,21 @@
 More than a normal promodoro app.
 
 ## Features :
+### Done:
 - Choice of your own work/pause time, it's set to 25 minutes to work and 5 minutes break time by default
-- Create a todo list for a number of sessions of your choice (in progress)
+- Create a todo
 
-## Getting started 🔧
+### In progress:
+ - Database CRUD operations for the todos
 
-### Installation
+### Todo:
+ - Add tags for todos (study, sport, ...)
+ - User authentication
+ - User schedule + calendar
+
+## Getting started :laugh
+
+### Run bective
 ```bash
-cd frontend
-yarn install
-yarn dev
-```
-### Run bective 
-```bash
-cd frontend
-yarn lint 
+docker compose up --build
 ```
