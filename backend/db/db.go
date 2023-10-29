@@ -7,13 +7,14 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
+	"os"
 )
 
 func getDbUrl() string {
-	dbUsr := utils.GetEnvFileValue("../.env", "POSTGRES_USER")
-	dbHost := utils.GetEnvFileValue("../.env", "POSTGRES_HOST")
-	dbPassword := utils.GetEnvFileValue("../.env", "POSTGRES_PASSWORD")
-	dbName := utils.GetEnvFileValue("../.env", "POSTGRES_DB")
+	dbUsr := os.Getenv("POSTGRES_USER")
+	dbHost := os.Getenv("POSTGRES_HOST")
+	dbPassword := os.Getenv("POSTGRES_PASSWORD")
+	dbName := os.Getenv("POSTGRES_DB")
 
 	return fmt.Sprintf("postgres://%s:%s@%s:5432/%s", dbUsr, dbPassword, dbHost, dbName)
 }
@@ -25,7 +26,6 @@ func InitDb() *gorm.DB {
 	if err != nil {
 		log.Fatalln(err)
 	}
-
 	utils.CheckError(db.AutoMigrate(&models.Todo{}))
 	return db
 }

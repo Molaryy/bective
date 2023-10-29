@@ -39,5 +39,7 @@ func (h Handler) DeleteTodo(c *gin.Context) {
 		fmt.Println(result.Error)
 	}
 	h.DB.Delete(&todo)
-	c.JSON(statusCode, gin.H{})
+	c.JSON(statusCode, gin.H{
+		"message": "Successfully deleted",
+	})
 }
