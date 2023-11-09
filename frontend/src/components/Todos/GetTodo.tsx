@@ -24,12 +24,12 @@ const GetTodoButton = () => {
       className={'get-todos-container'}
       style={{ backgroundColor: bgColorButton, color: colorText }}
       onMouseOver={() => {
-        setBgColorButton('rgb(49,45,45)');
-        setColorText('rgb(239,94,94)');
+        setBgColorButton('rgb(26,62,176)');
+        setColorText('rgb(26,62,176)');
       }}
       onMouseLeave={() => {
-        setBgColorButton('rgb(239,94,94)');
-        setColorText('rgb(.gitignore,.gitignore,.gitignore)');
+        setBgColorButton('rgb(26,62,176)');
+        setColorText('rgb(26,62,176)');
       }}
     >
       <h3>Create todo</h3>

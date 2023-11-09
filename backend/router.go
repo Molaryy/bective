@@ -9,7 +9,7 @@ import (
 )
 
 func RouteNotFound(c *gin.Context) {
-	c.JSON(http.StatusNotFound, gin.H{"message": "Bruh not found"})
+	c.JSON(http.StatusNotFound, gin.H{"message": "The page that you are trying to reach doesn't exist"})
 }
 
 func todosHandler(r *gin.Engine) {
@@ -18,6 +18,9 @@ func todosHandler(r *gin.Engine) {
 
 	r.POST("/todo", handler.AddTodo)
 	r.DELETE("/todo/:id", handler.DeleteTodo)
+	r.GET("/todos", handler.GetAllTodos)
+	r.GET("/todo/:id", handler.GetTodo)
+	r.PATCH("/todo/:id", handler.UpdateTodo)
 }
 
 func router(r *gin.Engine) {
