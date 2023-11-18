@@ -80,6 +80,22 @@ func (h Handler) GetTodo(c *gin.Context) {
 	}
 }
 
+func updateTodoFields(storedTodo *Todo, updatedTodo Todo) {
+	storedValue := reflect.ValueOf(storedTodo).Elem()
+	updatedValue := reflect.ValueOf(updatedTodo)
+
+	for i := 0; i < storedValue.NumField(); i++ {
+		field := storedValue.Type().Field(i)
+		fieldName := field.Name
+		storedFieldValue := storedValue.FieldByName(fieldName)
+		updatedFieldValue := updatedValue.FieldByName(fieldName)
+
+		if !reflect.DeepEqual(updatedFieldValue.Interface(), reflect.Zero(field.Type).Interface()) {
+			storedFieldValue.Set(updatedFieldValue)
+		}
+	}
+}
+
 func (h Handler) UpdateTodo(c *gin.Context) {
 	var updatedTodo Todo
 	var storedTodo Todo
@@ -92,28 +108,18 @@ func (h Handler) UpdateTodo(c *gin.Context) {
 		statusCode = http.StatusNotFound
 	}
 
-	if statusCode == http.StatusAccepted {
-		updatedTodoValue := reflect.ValueOf(updatedTodo)
-		updatedTodoType := updatedTodoValue.Type()
-		storedTodoValue := reflect.ValueOf(storedTodo)
-		storedTodoType := storedTodoValue.Type()
-		for i := 0; i < updatedTodoType.NumField(); i++ {
-			if updatedTodoType.Field(i).Name == storedTodoType.Field(i).Name {
-				fieldValue := updatedTodoValue.Field(i).Interface()
-				if str, ok := fieldValue.(string); ok && str != "" {
-					storedField := storedTodoValue.FieldByName(updatedTodoType.Field(i).Name)
-					storedField.Set(reflect.ValueOf(fieldValue))
-				}
-			}
-		}
-		fmt.Println(storedTodo)
-		c.JSON(statusCode, gin.H{
-			"todo": storedTodo,
-		})
-		// h.DB.Save(&storedTodo)
-	} else {
+	fmt.Println(updatedTodo)
+	fmt.Println(storedTodo)
+	if statusCode != http.StatusAccepted {
 		c.JSON(statusCode, gin.H{
 			"message": fmt.Sprintf("Todo with id %v could't be found\n", todoId),
 		})
+		return
 	}
+	updateTodoFields(&storedTodo, updatedTodo)
+	// h.DB.Save(&storedTodo)
+	fmt.Println(storedTodo)
+	c.JSON(statusCode, gin.H{
+		"todo": storedTodo,
+	})
 }
