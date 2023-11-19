@@ -29,6 +29,7 @@ func authHandler(r *gin.Engine) {
 }
 
 func router(r *gin.Engine) {
+	r.Use(middlewares.CORSMiddleware())
 	authHandler(r)
 	todosHandler(r)
 	r.NoRoute(RouteNotFound)
