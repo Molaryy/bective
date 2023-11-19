@@ -11,5 +11,5 @@ func main() {
 
 	r := gin.Default()
 	router(r)
-	utils.CheckError(r.Run())
+	utils.CheckError(r.Run(":8080"))
 }

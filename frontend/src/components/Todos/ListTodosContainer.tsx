@@ -83,7 +83,6 @@ const ListTodosContainer = ({ todos }: { todos: TodoList[] }) => {
         ></div>
         <div className={'todos-list-text'}>
           {todos.map((todo, index) => {
-            console.log(settingsOpened);
             return settingsOpened[index] ? (
               <div
                 key={index}

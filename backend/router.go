@@ -23,9 +23,13 @@ func todosHandler(r *gin.Engine) {
 	r.PATCH("/todo/:id", handler.UpdateTodo)
 }
 
-func router(r *gin.Engine) {
+func authHandler(r *gin.Engine) {
+	r.POST("/register", middlewares.AuthController)
 
-	r.POST("/auth", middlewares.AuthController)
+}
+
+func router(r *gin.Engine) {
+	authHandler(r)
 	todosHandler(r)
 	r.NoRoute(RouteNotFound)
 }

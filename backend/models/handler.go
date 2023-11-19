@@ -38,11 +38,18 @@ func (h Handler) DeleteTodo(c *gin.Context) {
 
 	if result := h.DB.First(&todo, todoId); result.Error != nil {
 		fmt.Printf("Todo with id: %v could't be found\n", todoId)
+		statusCode = http.StatusNotFound
 	}
 	h.DB.Delete(&todo)
-	c.JSON(statusCode, gin.H{
-		"message": fmt.Sprintf("Successfully deleted with id: %v", todoId),
-	})
+	if statusCode == http.StatusAccepted {
+		c.JSON(statusCode, gin.H{
+			"todo": todo,
+		})
+	} else {
+		c.JSON(statusCode, gin.H{
+			"message": fmt.Sprintf("Todo with id %v couldn't be found\n", todoId),
+		})
+	}
 }
 
 func (h Handler) GetAllTodos(c *gin.Context) {
@@ -51,12 +58,17 @@ func (h Handler) GetAllTodos(c *gin.Context) {
 
 	if result := h.DB.Find(&todos); result.Error != nil || len(todos) == 0 {
 		statusCode = http.StatusNotFound
-		fmt.Println("Couldn't find todos")
 	}
 
-	c.JSON(statusCode, gin.H{
-		"todos": todos,
-	})
+	if statusCode == http.StatusAccepted {
+		c.JSON(statusCode, gin.H{
+			"todo": todos,
+		})
+	} else {
+		c.JSON(statusCode, gin.H{
+			"message": fmt.Sprintf("There aren't any todos yet"),
+		})
+	}
 }
 
 func (h Handler) GetTodo(c *gin.Context) {
@@ -65,7 +77,6 @@ func (h Handler) GetTodo(c *gin.Context) {
 	statusCode := http.StatusAccepted
 
 	if result := h.DB.First(&todo, todoId); result.Error != nil {
-		fmt.Printf("Todo with id: %v could't be found\n", todoId)
 		statusCode = http.StatusNotFound
 	}
 
@@ -75,7 +86,7 @@ func (h Handler) GetTodo(c *gin.Context) {
 		})
 	} else {
 		c.JSON(statusCode, gin.H{
-			"message": fmt.Sprintf("Todo with id %v could't be found\n", todoId),
+			"message": fmt.Sprintf("Todo with id %v couldn't be found\n", todoId),
 		})
 	}
 }
@@ -117,8 +128,7 @@ func (h Handler) UpdateTodo(c *gin.Context) {
 		return
 	}
 	updateTodoFields(&storedTodo, updatedTodo)
-	// h.DB.Save(&storedTodo)
-	fmt.Println(storedTodo)
+	h.DB.Save(&storedTodo)
 	c.JSON(statusCode, gin.H{
 		"todo": storedTodo,
 	})
