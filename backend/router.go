@@ -25,7 +25,6 @@ func todosHandler(r *gin.Engine) {
 
 func authHandler(r *gin.Engine) {
 	r.POST("/register", middlewares.AuthController)
-
 }
 
 func router(r *gin.Engine) {

@@ -1,6 +1,8 @@
 import '../../styles/ListTodos.scss';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { TodoList } from '../../types.ts';
+import axios from "axios";
+import { Logger } from "sass";
 
 const todoValues = {
   pixelGap: 15,
@@ -31,9 +33,11 @@ const TodosListHeader = ({
 };
 
 const ListTodosContainer = ({ todos }: { todos: TodoList[] }) => {
+  const [todosTest, setTodos] = useState([]);
   const [heightBlurBg, setHeightBlurBg] = useState<number>(0);
   const [hideList, setHideList] = useState<boolean>(false);
   const [settingsOpened, setSettingsOpened] = useState<boolean[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const initSettings = () => {
     const initValues: boolean[] = [];
@@ -50,23 +54,45 @@ const ListTodosContainer = ({ todos }: { todos: TodoList[] }) => {
   }
 
   useEffect(() => {
-    if (todos.length <= 0) {
-      setHeightBlurBg(0);
-      return;
-    }
+    const fetchTodos = async () => {
+      try {
+        // Make a GET request to localhost:8080/todos
+        const response = await axios.get('http://localhost:8080/todos');
 
-    const expandBlurBg = () => {
+        // Set the todos state with the fetched data
+        setTodos(response.data);
+        // Set loading to false once data is fetched
+        setLoading(false);
+      } catch (error) {
+        // Handle errors, e.g., log the error or show an error message to the user
+        console.error('Error fetching todos:', error);
+        // Set loading to false in case of an error
+        setLoading(false);
+      }
+    };
+    fetchTodos();
+    const expandBlurBg = async () => {
       let heightCounter = todoValues.pixelGap;
+      const myTodos = await axios.get('http://localhost:8080/todos').then(res => res.data)
 
-      todos.forEach((todo) => {
-        todo.text.length >= todoValues.littleSizeText
-          ? (heightCounter += todoValues.bigSizeText)
-          : (heightCounter += todoValues.littleSizeText);
-        heightCounter += todoValues.pixelGap;
-        setHeightBlurBg(heightCounter);
-      });
+
+      console.log(todosTest.todo);
+      console.log(myTodos);
+      if (myTodos.todo) {
+        console.log("sup");
+        myTodos.todo.forEach((todo) => {
+          todo.title.length >= todoValues.littleSizeText
+            ? (heightCounter += todoValues.bigSizeText)
+            : (heightCounter += todoValues.littleSizeText);
+          heightCounter += todoValues.pixelGap;
+          setHeightBlurBg(heightCounter);
+        });
+      }
     };
     expandBlurBg();
+    /* if (todos.length <= 0) {
+      setHeightBlurBg(0);
+    } */
   }, [heightBlurBg, todos]);
 
   const openTodoSettings = (key: number) => {
@@ -82,19 +108,19 @@ const ListTodosContainer = ({ todos }: { todos: TodoList[] }) => {
           style={{ height: heightBlurBg + 'px', display: hideList ? 'none' : '' }}
         ></div>
         <div className={'todos-list-text'}>
-          {todos.map((todo, index) => {
+          {loading ? <></> : todosTest.todo.map((todo, index) => {
             return settingsOpened[index] ? (
               <div
                 key={index}
                 className={'todo-text-element'}
                 style={{
                   overflow: 'hidden',
-                  height: todo.text.length >= 50 ? '75px' : '150px',
+                  height: todo.title.length >= 50 ? '75px' : '150px',
                   display: hideList ? 'none' : '',
                 }}
                 onClick={() => openTodoSettings(index)}
               >
-                <p>{todo.text}</p>
+                <p>{todo.title}</p>
               </div>
             ) : (
               <div
@@ -102,12 +128,12 @@ const ListTodosContainer = ({ todos }: { todos: TodoList[] }) => {
                 className={'todo-text-element'}
                 style={{
                   overflow: 'hidden',
-                  height: todo.text.length >= 50 ? '75px' : '50px',
+                  height: todo.title.length >= 50 ? '75px' : '50px',
                   display: hideList ? 'none' : '',
                 }}
                 onClick={() => openTodoSettings(index)}
               >
-                <p>{todo.text}</p>
+                <p>{todo.title}</p>
               </div>
             );
           })}
