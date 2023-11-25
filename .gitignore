@@ -7,16 +7,15 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Frontend
 frontend/node_modules
 frontend/dist
 frontend/dist-ssr
 frontend/*.local
 frontend/.next
 
-
-# postgres data folder
-data
-
+# Backend
+backend/bective
 
 .env
 .env.local

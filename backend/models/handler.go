@@ -40,6 +40,7 @@ func (h Handler) DeleteTodo(c *gin.Context) {
 		fmt.Printf("Todo with id: %v could't be found\n", todoId)
 		statusCode = http.StatusNotFound
 	}
+
 	h.DB.Delete(&todo)
 	if statusCode == http.StatusAccepted {
 		c.JSON(statusCode, gin.H{
@@ -55,18 +56,19 @@ func (h Handler) DeleteTodo(c *gin.Context) {
 func (h Handler) GetAllTodos(c *gin.Context) {
 	var todos []Todo
 	statusCode := http.StatusAccepted
+	todosFound := true
 
 	if result := h.DB.Find(&todos); result.Error != nil || len(todos) == 0 {
-		statusCode = http.StatusNotFound
+		todosFound = false
 	}
 
-	if statusCode == http.StatusAccepted {
+	if todosFound {
 		c.JSON(statusCode, gin.H{
 			"todo": todos,
 		})
 	} else {
 		c.JSON(statusCode, gin.H{
-			"message": fmt.Sprintf("There aren't any todos yet"),
+			"todo": []interface{}{},
 		})
 	}
 }
