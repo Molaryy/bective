@@ -1,6 +1,7 @@
 import '../../styles/ListTodos.scss';
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
-import axios from "axios";
+import { Dispatch, FormEvent, SetStateAction, useState } from 'react';
+import axios from 'axios';
+import { ReceivedTodoApiType } from '../../types.ts';
 
 const placeHolderRandom = () => {
   const array = [
@@ -46,8 +47,8 @@ const GetTodo = (
   }: {
     todosLength: number;
     setTodosLength: Dispatch<SetStateAction<number>>;
-    todos: any;
-    setTodos: Dispatch<SetStateAction<any>>
+    todos: ReceivedTodoApiType | undefined;
+    setTodos: Dispatch<SetStateAction<ReceivedTodoApiType | undefined>>
   }
 ) => {
   const [inputValue, setInputValue] = useState('');
@@ -55,17 +56,17 @@ const GetTodo = (
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    if (inputValue === '' || inputValue === undefined) {
+    if (inputValue === '' || inputValue === undefined || !todos) {
       setInputValue('');
       return;
     }
     const newTodo = {
-      "title": inputValue,
-      "description": "",
-      "startDate": "",
-      "endDate": ""
+      'title': inputValue,
+      'description': '',
+      'startDate': '',
+      'endDate': ''
     };
-    const createdTodo = await axios.post("http://localhost:8080/todo", newTodo).then(res => res.data);
+    const createdTodo = await axios.post('http://localhost:8080/todo', newTodo).then(res => res.data);
     setTodosLength(todosLength + 1);
     const updatedTodos = { ...todos };
     updatedTodos.todo = [...updatedTodos.todo, createdTodo.created];

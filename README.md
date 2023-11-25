@@ -5,7 +5,7 @@ More than a normal promodoro app.
 ## Features :
 ### Done:
 - Choice of your own work/pause time, it's set to 25 minutes to work and 5 minutes break time by default
-- Create a todo
+- Create and remove a todo
 - Database CRUD operations for the todos
 
 ### In progress:
