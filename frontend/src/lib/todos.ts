@@ -1,14 +1,8 @@
-import { TodoList } from '../types.ts';
+import axios from "axios";
 
 class Todos {
-  private todos: TodoList[] = [];
-
-  public addTodo(todo: TodoList) {
-    this.todos.push(todo);
-  }
-
-  public getTodos() {
-    return this.todos;
+  public async getTodos() {
+    return await axios.get('http://localhost:8080/todos').then(res => res.data);
   }
 }
 

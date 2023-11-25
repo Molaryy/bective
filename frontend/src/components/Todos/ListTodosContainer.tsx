@@ -1,8 +1,8 @@
 import '../../styles/ListTodos.scss';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { TodoList } from '../../types.ts';
 import axios from "axios";
-import { Logger } from "sass";
+import GetTodo from "./GetTodo.tsx";
+import { TodoType, ReceivedTodoApiType } from "../../types.ts";
 
 const todoValues = {
   pixelGap: 15,
@@ -32,55 +32,120 @@ const TodosListHeader = ({
   );
 };
 
-const ListTodosContainer = ({ todos }: { todos: TodoList[] }) => {
-  const [todosTest, setTodos] = useState([]);
+const TodoUnity = (
+  {
+    settingsOpened,
+    index,
+    todo,
+    hideList,
+    openTodoSettings,
+    todos,
+    setTodos,
+    setTodosLength,
+    todosLength
+  }:{
+    settingsOpened: boolean[];
+    index: number;
+    todo: any;
+    hideList: boolean;
+    openTodoSettings: any;
+    todos: any;
+    setTodos: Dispatch<SetStateAction<any>>
+    setTodosLength: Dispatch<SetStateAction<number>>
+    todosLength: number
+  }) => {
+  const [deleteButtonIsClicked, setDeleteButtonIsClicked] = useState(false);
+
+  const removeTodo = async () => {
+    await axios.delete(`http://localhost:8080/todo/${todo.id}`);
+    setTodosLength(todosLength - 1)
+    todos.todo.forEach((t: TodoType) => {
+      console.log(t.id);
+    })
+    todos.todo = todos.todo.filter((t: TodoType) => t.id !== todo.id);
+    setTodos(todos);
+  }
+
+  return (
+    <div
+      className={'todo-text-element'}
+      style={{
+        overflow: 'hidden',
+        height: todo.title.length >= 50 ? '75px' : settingsOpened[index] ? '150px' : '50px',
+        display: hideList ? 'none' : '',
+      }}
+      onClick={() => {
+        console.log(deleteButtonIsClicked);
+        if (!deleteButtonIsClicked) {
+          openTodoSettings(index)
+        }
+      }}
+    >
+      <div
+        className={"todo-delete-button"}
+        onMouseOver={() => setDeleteButtonIsClicked(true)}
+        onClick={removeTodo}
+        onMouseLeave={() => setDeleteButtonIsClicked(false)}>x</div>
+      <p>{todo.title}</p>
+    </div>
+  )
+};
+
+const ListTodosContainer = () => {
   const [heightBlurBg, setHeightBlurBg] = useState<number>(0);
   const [hideList, setHideList] = useState<boolean>(false);
   const [settingsOpened, setSettingsOpened] = useState<boolean[]>([]);
   const [loading, setLoading] = useState(true);
+  const [todos, setTodos] = useState<ReceivedTodoApiType>();
+  const [todosLength, setTodosLength] = useState(0);
+  const [getTodosFromApi, setGetTodosFromApi] = useState<boolean>(false);
+  const [todoClickedCount, setTodoClickedCount] = useState(0);
 
   const initSettings = () => {
     const initValues: boolean[] = [];
-    for (let i = 0; i < todos.length; i++) {
-      if (!settingsOpened[i]) {
-        initValues[i] = false;
+
+    if (todos) {
+      for (let i = 0; i < todos.todo.length; i++) {
+        if (!settingsOpened[i]) {
+          initValues[i] = false;
+        }
+        setSettingsOpened(initValues);
       }
-      setSettingsOpened(initValues);
     }
   };
 
-  if (todos.length != settingsOpened.length) {
+  if (todosLength != settingsOpened.length) {
     initSettings();
   }
 
   useEffect(() => {
+    if (todosLength == 0) {
+      setSettingsOpened([])
+    }
     const fetchTodos = async () => {
       try {
-        // Make a GET request to localhost:8080/todos
-        const response = await axios.get('http://localhost:8080/todos');
+        const response = await axios.get('http://localhost:8080/todos').then(res => res.data);
 
-        // Set the todos state with the fetched data
-        setTodos(response.data);
-        // Set loading to false once data is fetched
+        setTodos(response);
+        setTodosLength(response.todo.length);
         setLoading(false);
       } catch (error) {
-        // Handle errors, e.g., log the error or show an error message to the user
         console.error('Error fetching todos:', error);
-        // Set loading to false in case of an error
         setLoading(false);
       }
     };
-    fetchTodos();
+    if (!getTodosFromApi) {
+      fetchTodos();
+      setGetTodosFromApi(true);
+    }
     const expandBlurBg = async () => {
       let heightCounter = todoValues.pixelGap;
-      const myTodos = await axios.get('http://localhost:8080/todos').then(res => res.data)
 
-
-      console.log(todosTest.todo);
-      console.log(myTodos);
-      if (myTodos.todo) {
-        console.log("sup");
-        myTodos.todo.forEach((todo) => {
+      if (todos && todos.todo) {
+        if (todos.todo.length <= 0) {
+          setHeightBlurBg(0);
+        }
+        todos.todo.forEach((todo) => {
           todo.title.length >= todoValues.littleSizeText
             ? (heightCounter += todoValues.bigSizeText)
             : (heightCounter += todoValues.littleSizeText);
@@ -90,17 +155,16 @@ const ListTodosContainer = ({ todos }: { todos: TodoList[] }) => {
       }
     };
     expandBlurBg();
-    /* if (todos.length <= 0) {
-      setHeightBlurBg(0);
-    } */
-  }, [heightBlurBg, todos]);
-
+  }, [heightBlurBg, todosLength, todoClickedCount]);
   const openTodoSettings = (key: number) => {
     settingsOpened[key] = !settingsOpened[key];
+    setSettingsOpened(settingsOpened);
+    setTodoClickedCount(todoClickedCount + 1)
   };
 
   return (
     <div>
+      <GetTodo todosLength={todosLength} setTodosLength={setTodosLength} todos={todos} setTodos={setTodos}/>
       <TodosListHeader setHideList={setHideList} hideList={hideList} />
       <div className={'todos-list-container'}>
         <div
@@ -108,35 +172,20 @@ const ListTodosContainer = ({ todos }: { todos: TodoList[] }) => {
           style={{ height: heightBlurBg + 'px', display: hideList ? 'none' : '' }}
         ></div>
         <div className={'todos-list-text'}>
-          {loading ? <></> : todosTest.todo.map((todo, index) => {
-            return settingsOpened[index] ? (
-              <div
-                key={index}
-                className={'todo-text-element'}
-                style={{
-                  overflow: 'hidden',
-                  height: todo.title.length >= 50 ? '75px' : '150px',
-                  display: hideList ? 'none' : '',
-                }}
-                onClick={() => openTodoSettings(index)}
-              >
-                <p>{todo.title}</p>
-              </div>
-            ) : (
-              <div
-                key={index}
-                className={'todo-text-element'}
-                style={{
-                  overflow: 'hidden',
-                  height: todo.title.length >= 50 ? '75px' : '50px',
-                  display: hideList ? 'none' : '',
-                }}
-                onClick={() => openTodoSettings(index)}
-              >
-                <p>{todo.title}</p>
-              </div>
-            );
-          })}
+          {loading ? <></> : todos ? todos.todo.map((todo, index) => {
+            return <TodoUnity
+              key={index}
+              settingsOpened={settingsOpened}
+              todo={todo}
+              openTodoSettings={openTodoSettings}
+              hideList={hideList}
+              index={index}
+              todos={todos}
+              setTodos={setTodos}
+              setTodosLength={setTodosLength}
+              todosLength={todosLength}
+            />
+          }) : <></>}
         </div>
       </div>
     </div>

@@ -13,8 +13,16 @@ type TimerFormProps = {
   isInPause: boolean;
 };
 
-type TodoList = {
-  text: string;
+type TodoType = {
+  id: number,
+  title: string,
+  description: string,
+  startDate: string,
+  endDate: string
 };
 
-export type { TimerFormProps, TodoList };
+type ReceivedTodoApiType = {
+  todo: TodoType[]
+}
+
+export type { TimerFormProps, TodoType, ReceivedTodoApiType };
