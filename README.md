@@ -15,7 +15,7 @@ More than a normal promodoro app.
  - Add tags for todos (study, sport, ...)
  - User schedule + calendar
 
-## Getting started :laugh
+## Getting started 🚀
 
 ### Run bective
 ```bash
