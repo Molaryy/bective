@@ -110,3 +110,12 @@
   top: 20rem;
 }
 
+.todo-progress-bar {
+  position: absolute;
+  width: 0;
+  height: 20px;
+  background-color: red;
+  opacity: 50%;
+  transition: all 0.3s ease 0s;
+  border-radius: 5px;
+}

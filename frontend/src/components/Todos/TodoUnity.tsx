@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import axios from 'axios';
 import { ReceivedTodoApiType, TodoType } from '../../types.ts';
 
@@ -25,6 +25,7 @@ const TodoUnity = (
     todosLength: number
   }) => {
   const [deleteButtonIsClicked, setDeleteButtonIsClicked] = useState(false);
+  const [todoTimeBar, setTodoTimeBar] = useState(0);
 
   const removeTodo = async () => {
     await axios.delete(`http://localhost:8080/todo/${todo.id}`);
@@ -36,6 +37,14 @@ const TodoUnity = (
     setTodos(todos);
   }
 
+  useEffect(() => {
+    const timeInterval: number = setInterval(() => {
+      todoTimeBar >= 100 ? setTodoTimeBar(0) : setTodoTimeBar(todoTimeBar + 1);
+    }, 200);
+
+    return () => clearInterval(timeInterval);
+  }, [todoTimeBar]);
+
   return (
     <div
       className={'todo-text-element'}
@@ -45,7 +54,6 @@ const TodoUnity = (
         display: hideList ? 'none' : '',
       }}
       onClick={() => {
-        console.log(deleteButtonIsClicked);
         if (!deleteButtonIsClicked) {
           openTodoSettings(index)
         }
@@ -56,6 +64,14 @@ const TodoUnity = (
         onMouseOver={() => setDeleteButtonIsClicked(true)}
         onClick={removeTodo}
         onMouseLeave={() => setDeleteButtonIsClicked(false)}>x</div>
+      <div
+        className={"todo-progress-bar"}
+        style={{
+          overflow: 'hidden',
+          height: todo.title.length >= 50 ? '75px' : settingsOpened[index] ? '150px' : '50px',
+          width: `${todoTimeBar}%`
+        }}
+      ></div>
       <p>{todo.title}</p>
     </div>
   )

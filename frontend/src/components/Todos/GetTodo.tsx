@@ -3,18 +3,6 @@ import { Dispatch, FormEvent, SetStateAction, useState } from 'react';
 import axios from 'axios';
 import { ReceivedTodoApiType } from '../../types.ts';
 
-const placeHolderRandom = () => {
-  const array = [
-    'Memorize my notes',
-    'Complete school project',
-    'Read a book',
-    'Exercise',
-    'Learn a new skill',
-  ];
-
-  return array[Math.floor(Math.random() * array.length)];
-};
-
 const GetTodoButton = () => {
   const [bgColorButton, setBgColorButton] = useState('rgb(239,94,94)');
   const [colorText, setColorText] = useState('rgb(.gitignore,.gitignore,.gitignore)');
@@ -79,7 +67,16 @@ const GetTodo = (
       <input
         className={'input-todo'}
         maxLength={90}
-        placeholder={placeHolderRandom()}
+        placeholder={"My new project"}
+        value={inputValue}
+        onChange={(event) => {
+          setInputValue(event.target.value);
+        }}
+      />
+      <input
+        className={'input-todo'}
+        maxLength={90}
+        placeholder={"My new project"}
         value={inputValue}
         onChange={(event) => {
           setInputValue(event.target.value);

@@ -12,10 +12,11 @@ More than a normal promodoro app.
 - User authentication
 
 ### Todo:
+ - Todo bar effect of passed time since it was created
  - Add tags for todos (study, sport, ...)
  - User schedule + calendar
 
-## Getting started :laugh
+## Getting started :
 
 ### Run bective
 ```bash
