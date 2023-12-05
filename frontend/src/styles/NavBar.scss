@@ -1,7 +1,10 @@
 .navbar {
-  list-style: none;
-  display: flex;
   background-color: #ffffff;
   height: 35px;
   width: 100%;
+}
+
+@media (width < 700px) {
+  .navbar {
+  }
 }

@@ -1,11 +1,9 @@
 .todos-title-header {
   position: absolute;
-  width: 380px;
-  height: 50px;
+
   border-radius: 10px;
   transition: all 0.3s ease 0s;
   margin-left: 70%;
-  top: 12.19rem;
   text-align: center;
   line-height: 15px;
   color: white;
@@ -16,10 +14,6 @@
   position: absolute;
   overflow-x: hidden;
   overflow-y: auto;
-  height: 500px;
-  width: 400px;
-  top: 16rem;
-  margin-left: 70%;
 }
 
 .todos-list {
@@ -95,11 +89,6 @@
   line-height: 0;
 }
 
-.todo-input-form {
-  width: 420px;
-  margin-left: 10%;
-}
-
 .todo-custom-settings-container {
   position: absolute;
   width: 250px;
@@ -110,3 +99,46 @@
   top: 20rem;
 }
 
+@media (width < 700px) {
+  .todos-title-header {
+    width: 320px;
+    height: 50px;
+    top: 50rem;
+    right: 1.75rem;
+  }
+  .todo-input-form {
+    margin-left: 10%;
+  }
+  .todos-list-container {
+    height: 500px;
+    width: 400px;
+    margin-left: 5%;
+    top: 55rem;
+  }
+  .input-todo {
+    margin-top: 2rem;
+    width: 320px;
+    height: 50px;
+  }
+  .get-todos-container {
+    width: 320px;
+  }
+}
+
+@media (width >= 700px) {
+  .todos-title-header {
+    width: 380px;
+    height: 50px;
+    top: 12.19rem;
+  }
+  .todo-input-form {
+    width: 420px;
+    margin-left: 10%;
+  }
+  .todos-list-container {
+    height: 500px;
+    width: 400px;
+    top: 16rem;
+    margin-left: 70%;
+  }
+}
