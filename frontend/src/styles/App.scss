@@ -64,6 +64,8 @@ body {
 
 .buttons-time-form {
   .btn-form {
+    color: white;
+    background-color: #575656;
     cursor: pointer;
     width: 60px;
     height: 35px;
@@ -74,7 +76,6 @@ body {
     border-radius: 10px;
     transition: all 0.3s ease 0s;
     border: none;
-    color: #252323;
   }
 
   .btn-form:hover {
@@ -108,6 +109,28 @@ input::-webkit-inner-spin-button {
     margin-left: 10%;
     width: 320px;
     height: 400px;
+  }
+  .buttons-time-form {
+    .btn-form {
+      margin-left: 10px;
+    }
+  }
+  .work-time {
+    position: absolute;
+    margin-top: 4rem;
+    margin-left: 10px;
+    width: 150px;
+  }
+  .pause-time {
+    position: absolute;
+    margin-left: 175px;
+    margin-top: 4rem;
+  }
+  .work-time-title {
+    margin-left: 2rem;
+  }
+  .pause-time-title {
+    margin-left: 13rem;
   }
 }
 
