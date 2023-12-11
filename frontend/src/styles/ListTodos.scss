@@ -2,7 +2,6 @@
   position: absolute;
 
   border-radius: 10px;
-  transition: all 0.3s ease 0s;
   margin-left: 70%;
   text-align: center;
   line-height: 15px;
@@ -68,7 +67,7 @@
 
 .input-todo {
   margin-top: 2rem;
-  width: 420px;
+  width: 410px;
   height: 50px;
   border-radius: 10px;
   line-height: 50px;
@@ -81,7 +80,6 @@
   width: 420px;
   height: 40px;
   border-radius: 10px;
-  transition: all 0.3s ease 0s;
   text-align: center;
   cursor: pointer;
   margin-top: 1.5rem;
@@ -122,11 +120,12 @@
   }
   .input-todo {
     margin-top: 2rem;
-    width: 320px;
+    width: 310px;
     height: 50px;
   }
   .get-todos-container {
-    width: 320px;
+    width: 310px;
+    left: 10px;
   }
   .todos-list {
     position: absolute;
