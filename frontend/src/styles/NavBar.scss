@@ -2,9 +2,16 @@
   background-color: #ffffff;
   height: 35px;
   width: 100%;
-}
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-@media (width < 700px) {
-  .navbar {
+  ul {
+    list-style: none;
+    display: flex;
+
+    li {
+      margin: 0 10px;
+    }
   }
 }
