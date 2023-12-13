@@ -1,0 +1,40 @@
+.todo-input-form {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 390px;
+  .input-todo {
+    border-radius: 10px;
+    height: 40px;
+    text-align: center;
+  }
+  .get-todos-container {
+    margin-top: 3px;
+    border-radius: 10px;
+    height: 50px;
+  }
+}
+
+.todos-title-header {
+}
+
+.todos-list-container {
+}
+
+.todos-list {
+}
+
+.todos-list-text {
+}
+
+.todo-text-element {
+  p {
+  }
+  .todo-delete-button {
+  }
+  .todo-delete-button:hover {
+  }
+}
+
+.todo-custom-settings-container {
+}

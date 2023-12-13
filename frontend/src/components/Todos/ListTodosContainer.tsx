@@ -1,4 +1,4 @@
-import '../../styles/ListTodos.scss';
+import './ListTodos.scss';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import axios from 'axios';
 import GetTodo from './GetTodo.tsx';
@@ -62,11 +62,11 @@ const ListTodosContainer = () => {
 
   useEffect(() => {
     if (todosLength == 0) {
-      setSettingsOpened([])
+      setSettingsOpened([]);
     }
     const fetchTodos = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/todos').then(res => res.data);
+        const response = await axios.get('http://localhost:8080/todos').then((res) => res.data);
 
         setTodos(response);
         setTodosLength(response.todo.length);
@@ -102,35 +102,48 @@ const ListTodosContainer = () => {
   const openTodoSettings = (key: number) => {
     settingsOpened[key] = !settingsOpened[key];
     setSettingsOpened(settingsOpened);
-    setTodoClickedCount(todoClickedCount + 1)
+    setTodoClickedCount(todoClickedCount + 1);
   };
 
   return (
     <div>
-      <GetTodo todosLength={todosLength} setTodosLength={setTodosLength} todos={todos} setTodos={setTodos}/>
-      <TodosListHeader setHideList={setHideList} hideList={hideList} />
+      <GetTodo
+        todosLength={todosLength}
+        setTodosLength={setTodosLength}
+        todos={todos}
+        setTodos={setTodos}
+      />
+      {/* <TodosListHeader setHideList={setHideList} hideList={hideList} />
       <div className={'todos-list-container'}>
         <div
           className={'todos-list'}
           style={{ height: heightBlurBg + 'px', display: hideList ? 'none' : '' }}
         ></div>
         <div className={'todos-list-text'}>
-          {loading ? <></> : todos ? todos.todo.map((todo, index) => {
-            return <TodoUnity
-              key={index}
-              settingsOpened={settingsOpened}
-              todo={todo}
-              openTodoSettings={openTodoSettings}
-              hideList={hideList}
-              index={index}
-              todos={todos}
-              setTodos={setTodos}
-              setTodosLength={setTodosLength}
-              todosLength={todosLength}
-            />
-          }) : <></>}
+          {loading ? (
+            <></>
+          ) : todos ? (
+            todos.todo.map((todo, index) => {
+              return (
+                <TodoUnity
+                  key={index}
+                  settingsOpened={settingsOpened}
+                  todo={todo}
+                  openTodoSettings={openTodoSettings}
+                  hideList={hideList}
+                  index={index}
+                  todos={todos}
+                  setTodos={setTodos}
+                  setTodosLength={setTodosLength}
+                  todosLength={todosLength}
+                />
+              );
+            })
+          ) : (
+            <></>
+          )}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

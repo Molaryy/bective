@@ -18,10 +18,11 @@
 
   .work-time {
     .work-time-input {
+      font-size: 20px;
       text-align: center;
       align-items: center;
-      height: 40px;
-      width: 30px;
+      height: 50px;
+      width: 40px;
       border-radius: 5px;
     }
   }
@@ -34,9 +35,10 @@
 
   .pause-time {
     .pause-time-input  {
+      font-size: 20px;
       text-align: center;
-      height: 40px;
-      width: 30px;
+      height: 50px;
+      width: 40px;
       border-radius: 5px;
     }
   }
@@ -51,11 +53,13 @@
     color: white;
     background-color: #575656;
     cursor: pointer;
-    height: 35px;
+    height: 40px;
     border-radius: 10px;
     border: none;
     text-align: center;
     transition: all 0.15s ease 0s;
+    padding-left: 15px;
+    padding-right: 15px;
   }
   .btn-form:hover {
     box-shadow: 0 5px 5px;

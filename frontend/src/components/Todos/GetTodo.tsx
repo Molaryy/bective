@@ -1,4 +1,4 @@
-import '../../styles/ListTodos.scss';
+import './ListTodos.scss';
 import { Dispatch, FormEvent, SetStateAction, useState } from 'react';
 import axios from 'axios';
 import { ReceivedTodoApiType } from '../../types.ts';
@@ -26,10 +26,10 @@ const GetTodoButton = () => {
       style={{ backgroundColor: bgColorButton, color: colorText }}
       onMouseOver={() => {
         setBgColorButton('rgb(49,45,45)');
-        setColorText('rgb(239,94,94)');
+        setColorText('rgb(238,65,65)');
       }}
       onMouseLeave={() => {
-        setBgColorButton('rgb(239,94,94)');
+        setBgColorButton('rgb(238,65,65)');
         setColorText('rgb(49,45,45)');
       }}
     >
@@ -38,19 +38,17 @@ const GetTodoButton = () => {
   );
 };
 
-const GetTodo = (
-  {
-    todosLength,
-    setTodosLength,
-    todos,
-    setTodos
-  }: {
-    todosLength: number;
-    setTodosLength: Dispatch<SetStateAction<number>>;
-    todos: ReceivedTodoApiType | undefined;
-    setTodos: Dispatch<SetStateAction<ReceivedTodoApiType | undefined>>
-  }
-) => {
+const GetTodo = ({
+  todosLength,
+  setTodosLength,
+  todos,
+  setTodos,
+}: {
+  todosLength: number;
+  setTodosLength: Dispatch<SetStateAction<number>>;
+  todos: ReceivedTodoApiType | undefined;
+  setTodos: Dispatch<SetStateAction<ReceivedTodoApiType | undefined>>;
+}) => {
   const [inputValue, setInputValue] = useState('');
 
   const onSubmit = async (event: FormEvent) => {
@@ -61,12 +59,14 @@ const GetTodo = (
       return;
     }
     const newTodo = {
-      'title': inputValue,
-      'description': '',
-      'startDate': '',
-      'endDate': ''
+      title: inputValue,
+      description: '',
+      startDate: '',
+      endDate: '',
     };
-    const createdTodo = await axios.post('http://localhost:8080/todo', newTodo).then(res => res.data);
+    const createdTodo = await axios
+      .post('http://localhost:8080/todo', newTodo)
+      .then((res) => res.data);
     setTodosLength(todosLength + 1);
     const updatedTodos = { ...todos };
     updatedTodos.todo = [...updatedTodos.todo, createdTodo.created];
