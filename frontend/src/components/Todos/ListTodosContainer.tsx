@@ -1,7 +1,6 @@
 import './ListTodos.scss';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import axios from 'axios';
-import GetTodo from './GetTodo.tsx';
 import { ReceivedTodoApiType } from '../../types.ts';
 import TodoUnity from './TodoUnity.tsx';
 
@@ -33,13 +32,21 @@ const TodosListHeader = ({
   );
 };
 
-const ListTodosContainer = () => {
+const ListTodosContainer = ({
+  todos,
+  setTodos,
+  todosLength,
+  setTodosLength,
+}: {
+  todos: ReceivedTodoApiType | undefined;
+  setTodos: any;
+  todosLength: number;
+  setTodosLength: any;
+}) => {
   const [heightBlurBg, setHeightBlurBg] = useState<number>(0);
   const [hideList, setHideList] = useState<boolean>(false);
   const [settingsOpened, setSettingsOpened] = useState<boolean[]>([]);
   const [loading, setLoading] = useState(true);
-  const [todos, setTodos] = useState<ReceivedTodoApiType>();
-  const [todosLength, setTodosLength] = useState(0);
   const [getTodosFromApi, setGetTodosFromApi] = useState<boolean>(false);
   const [todoClickedCount, setTodoClickedCount] = useState(0);
 
@@ -106,44 +113,36 @@ const ListTodosContainer = () => {
   };
 
   return (
-    <div>
-      <GetTodo
-        todosLength={todosLength}
-        setTodosLength={setTodosLength}
-        todos={todos}
-        setTodos={setTodos}
-      />
-      {/* <TodosListHeader setHideList={setHideList} hideList={hideList} />
-      <div className={'todos-list-container'}>
-        <div
-          className={'todos-list'}
-          style={{ height: heightBlurBg + 'px', display: hideList ? 'none' : '' }}
-        ></div>
-        <div className={'todos-list-text'}>
-          {loading ? (
-            <></>
-          ) : todos ? (
-            todos.todo.map((todo, index) => {
-              return (
-                <TodoUnity
-                  key={index}
-                  settingsOpened={settingsOpened}
-                  todo={todo}
-                  openTodoSettings={openTodoSettings}
-                  hideList={hideList}
-                  index={index}
-                  todos={todos}
-                  setTodos={setTodos}
-                  setTodosLength={setTodosLength}
-                  todosLength={todosLength}
-                />
-              );
-            })
-          ) : (
-            <></>
-          )}
-        </div>
-      </div> */}
+    <div className={'todos-list-container'}>
+      <TodosListHeader setHideList={setHideList} hideList={hideList} />
+      <div
+        className={'todos-list'}
+        style={{ height: heightBlurBg + 'px', display: hideList ? 'none' : '' }}
+      ></div>
+      <div className={'todos-list-text'}>
+        {loading ? (
+          <></>
+        ) : todos ? (
+          todos.todo.map((todo, index) => {
+            return (
+              <TodoUnity
+                key={index}
+                settingsOpened={settingsOpened}
+                todo={todo}
+                openTodoSettings={openTodoSettings}
+                hideList={hideList}
+                index={index}
+                todos={todos}
+                setTodos={setTodos}
+                setTodosLength={setTodosLength}
+                todosLength={todosLength}
+              />
+            );
+          })
+        ) : (
+          <></>
+        )}
+      </div>
     </div>
   );
 };

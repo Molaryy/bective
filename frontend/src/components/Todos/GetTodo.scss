@@ -1,0 +1,26 @@
+.todo-input-form {
+  width: 390px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-todo {
+  margin-top: 2rem;
+  width: 383px;
+  height: 50px;
+  border-radius: 10px;
+  line-height: 50px;
+  cursor: pointer;
+  font-size: 17px;
+  margin-bottom: -1.1rem;
+}
+
+.get-todos-container {
+  width: 390px;
+  height: 40px;
+  border-radius: 10px;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  line-height: 5px;
+}

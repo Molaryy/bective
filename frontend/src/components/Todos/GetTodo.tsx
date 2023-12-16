@@ -1,4 +1,4 @@
-import './ListTodos.scss';
+import './GetTodo.scss';
 import { Dispatch, FormEvent, SetStateAction, useState } from 'react';
 import axios from 'axios';
 import { ReceivedTodoApiType } from '../../types.ts';
