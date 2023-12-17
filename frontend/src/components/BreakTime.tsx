@@ -4,7 +4,7 @@ const requestNotificationPermission = () => {
   if (Notification.permission !== 'granted') {
     Notification.requestPermission().then((permission: NotificationPermission) => {
       if (permission !== 'granted') {
-        console.error('Notification permission granted.');
+        console.error('Notification permission not granted.');
       }
     });
   }
