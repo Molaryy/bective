@@ -1,3 +1,4 @@
+/*
 import { useEffect, useState } from 'react'
 
 const requestNotificationPermission = () => {
@@ -18,13 +19,14 @@ const sendNotification = () => {
     setCanSendNotification(false)
   }
 }
+*/
 
 const BreakTime = () => {
-  useEffect(() => {
+  /* useEffect(() => {
     requestNotificationPermission()
   }, [])
-  sendNotification()
-  return <></>
-}
+  sendNotification() */
+  return <></>;
+};
 
-export default BreakTime
+export default BreakTime;

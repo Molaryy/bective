@@ -1,5 +1,8 @@
 import { FormEvent, useEffect, useState } from 'react';
 import TimerForm from './TimerForm.tsx';
+import pauseSound from '/assets/5-minutes-lofi.mp3';
+import workSound from '/assets/Wakey-Wakey.mp3';
+import BreakTime from '../BreakTime.tsx';
 
 const TimerFormHandler = () => {
   const [workTime, setWorkTime] = useState<string[]>(['00', '25', '00']);
@@ -115,7 +118,16 @@ const TimerFormHandler = () => {
         isWorking={isWorkTimerRunning}
         isInPause={isPauseTimerRunning}
       />
-      {startPauseSound ? <></> : <></>}
+      {startPauseSound ? (
+        <>
+          <BreakTime />
+          <audio controls src={pauseSound} autoPlay hidden />
+        </>
+      ) : startWorkSound[0] && startWorkSound[1] ? (
+        <audio controls src={workSound} autoPlay hidden />
+      ) : (
+        <></>
+      )}
     </>
   );
 };
