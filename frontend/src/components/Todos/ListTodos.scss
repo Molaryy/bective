@@ -1,0 +1,85 @@
+.todos-list-container {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 500px;
+  width: 400px;
+  margin-top: 8.7rem;
+  grid-area: list-todos;
+  margin-left: 5rem;
+}
+
+@media (width < 950px) {
+  .todos-list-container {
+    margin-top: 2.5rem;
+    margin-left: 5px;
+  }
+}
+
+.todos-title-header {
+  border-radius: 10px;
+  transition: all 0.3s ease 0s;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  width: 380px;
+  height: 50px;
+}
+
+.todos-list {
+  width: 380px;
+  background-color: rgba(133, 122, 122, 0.50);
+  filter: blur(3px);
+  -webkit-filter: blur(3px);
+  border-radius: 10px;
+  transition: all 0.15s ease 0s;
+  text-align: center;
+  line-height: 15px;
+  color: white;
+}
+
+.todos-list-text {
+  position: absolute;
+  margin-left: 10px;
+  top: 5rem;
+}
+
+.todo-text-element {
+  transition: all 0.3s ease 0s;
+  margin-bottom: 15px;
+  background-color: white;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 360px;
+  text-align: center;
+  cursor: pointer;
+
+  p {
+    margin-left: 5px;
+  }
+  .todo-delete-button {
+    position: absolute;
+    background-color: rgb(239,94,94);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    right: 0.6em;
+    margin-top: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease 0s;
+    font-size: 12px;
+  }
+  .todo-delete-button:hover {
+    background-color: #280404;
+    color: white;
+  }
+}
+
+.todo-custom-settings-container {
+  width: 250px;
+  height: 250px;
+  background-color: white;
+  border-radius: 10px;
+}
