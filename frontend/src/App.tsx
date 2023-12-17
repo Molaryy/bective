@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className={'test'}>
+      <div className={'bective-form-parent'}>
         <div className={'todos-parent'}>
           <TimerFormHandler />
           <TodosHandler />

@@ -1,4 +1,5 @@
 .todos-list-container {
+  position: relative;
   overflow-x: hidden;
   overflow-y: auto;
   height: 500px;
@@ -8,7 +9,7 @@
   margin-left: 5rem;
 }
 
-@media (width < 1421px) {
+@media (width < 950px) {
   .todos-list-container {
     margin-top: 2.5rem;
     margin-left: 5px;
@@ -19,7 +20,6 @@
   border-radius: 10px;
   transition: all 0.3s ease 0s;
   text-align: center;
-  line-height: 15px;
   color: white;
   cursor: pointer;
   width: 380px;
@@ -39,8 +39,9 @@
 }
 
 .todos-list-text {
+  position: absolute;
   margin-left: 10px;
-  top: 1rem;
+  top: 5rem;
 }
 
 .todo-text-element {
@@ -57,13 +58,16 @@
     margin-left: 5px;
   }
   .todo-delete-button {
+    position: absolute;
     background-color: rgb(239,94,94);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 15px;
     height: 15px;
-    right: 0.5em;
+    right: 0.6em;
     margin-top: 0.5rem;
     border-radius: 50%;
-    text-align: center;
     transition: all 0.3s ease 0s;
     font-size: 12px;
   }

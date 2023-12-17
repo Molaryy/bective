@@ -27,7 +27,7 @@ const TodosListHeader = ({
       onMouseLeave={() => setBgColor('rgb(72,72,65)')}
       onClick={() => setHideList(!hideList)}
     >
-      <h2>Todos</h2>
+      <h1>Todos</h1>
     </div>
   );
 };
@@ -39,9 +39,9 @@ const ListTodosContainer = ({
   setTodosLength,
 }: {
   todos: ReceivedTodoApiType | undefined;
-  setTodos: any;
+  setTodos: Dispatch<SetStateAction<ReceivedTodoApiType | undefined>>;
   todosLength: number;
-  setTodosLength: any;
+  setTodosLength: Dispatch<SetStateAction<number>>;
 }) => {
   const [heightBlurBg, setHeightBlurBg] = useState<number>(0);
   const [hideList, setHideList] = useState<boolean>(false);

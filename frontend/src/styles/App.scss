@@ -5,7 +5,7 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #17a264;
+  background-color: #5547d3;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -19,9 +19,8 @@ body {
   ;
 }
 
-@media (width < 1421px) {
+@media (width < 950px) {
   .todos-parent {
-    max-width: 400px;
     grid-template-areas:
     "form"
     "get-todos"
@@ -30,9 +29,7 @@ body {
   }
 }
 
-
-
-.test {
+.bective-form-parent {
   display: grid;
   place-items: center;
 }

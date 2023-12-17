@@ -1,21 +1,65 @@
 nav {
   background-color: #ffffff;
   display: grid;
-  grid-template-columns: 33% 30%;
+  grid-template-columns: 50% 45%;
   align-items: center;
   width: 100%;
+  height: 40px;
+  transition: all 0.3s ease-in-out;
+
+
   ul {
     display: flex;
     justify-content: space-around;
-    height: 10px;
     align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease-in-out;
     li {
-      list-style: none;
-      margin-right: 1rem;
+      cursor: pointer;
+      border-radius: 15px;
+      transition: all 0.15s ease-in-out 0s;
+      margin-right: 4rem;
     }
   }
-  img {
+
+  .bective-logo {
     border-radius: 50%;
     width: 35px;
+  }
+
+  .toggle-button {
+    position: absolute;
+    display: none;
+    width: 35px;
+    height: 40px;
+    right: 0.5rem;
+    cursor: pointer;
+  }
+
+  @media (max-width: 680px) {
+    .toggle-button {
+      display: flex;
+      margin-right: 1rem;
+    }
+
+    .menu-open {
+      font-size: 20px;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: absolute;
+      top: 40px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      li {
+        margin-left: 2rem;
+      }
+    }
+    ul {
+      display: none;
+    }
   }
 }
