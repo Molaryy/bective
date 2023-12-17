@@ -1,17 +1,21 @@
-.navbar {
+nav {
   background-color: #ffffff;
-  height: 35px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 33% 30%;
   align-items: center;
-
+  width: 100%;
   ul {
-    list-style: none;
     display: flex;
-
+    justify-content: space-around;
+    height: 10px;
+    align-items: center;
     li {
-      margin: 0 10px;
+      list-style: none;
+      margin-right: 1rem;
     }
+  }
+  img {
+    border-radius: 50%;
+    width: 35px;
   }
 }

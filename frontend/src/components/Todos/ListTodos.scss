@@ -1,3 +1,20 @@
+.todos-list-container {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 500px;
+  width: 400px;
+  margin-top: 8.7rem;
+  grid-area: list-todos;
+  margin-left: 5rem;
+}
+
+@media (width < 1421px) {
+  .todos-list-container {
+    margin-top: 2.5rem;
+    margin-left: 5px;
+  }
+}
+
 .todos-title-header {
   border-radius: 10px;
   transition: all 0.3s ease 0s;
@@ -7,15 +24,6 @@
   cursor: pointer;
   width: 380px;
   height: 50px;
-}
-
-.todos-list-container {
-  overflow-x: hidden;
-  overflow-y: auto;
-  height: 500px;
-  width: 400px;
-  top: 16rem;
-  margin-left: 70%;
 }
 
 .todos-list {
@@ -70,6 +78,4 @@
   height: 250px;
   background-color: white;
   border-radius: 10px;
-  margin-left: 53%;
-  top: 20rem;
 }

@@ -6,8 +6,12 @@ function App() {
   return (
     <>
       <Navbar />
-      <TimerFormHandler />
-      <TodosHandler />
+      <div className={'test'}>
+        <div className={'todos-parent'}>
+          <TimerFormHandler />
+          <TodosHandler />
+        </div>
+      </div>
     </>
   );
 }

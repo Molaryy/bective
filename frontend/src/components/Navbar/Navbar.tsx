@@ -2,13 +2,14 @@ import './NavBar.scss';
 
 const Navbar = () => {
   return (
-    <div className={'navbar'}>
+    <nav>
+      <img src={'/assets/bective-logo.png'} alt={'bective logo'} />
       <ul>
         <li>Home</li>
         <li>Connect</li>
         <li>About</li>
       </ul>
-    </div>
+    </nav>
   );
 };
 export default Navbar;

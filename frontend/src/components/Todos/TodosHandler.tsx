@@ -12,17 +12,17 @@ const TodosHandler = () => {
 
   return (
     <>
-      <GetTodo
-        todosLength={todosLength}
-        setTodosLength={setTodosLength}
-        todos={todos}
-        setTodos={setTodos}
-      />
       <ListTodosContainer
         todos={todos}
         setTodos={setTodos}
         todosLength={todosLength}
         setTodosLength={setTodosLength}
+      />
+      <GetTodo
+        todosLength={todosLength}
+        setTodosLength={setTodosLength}
+        todos={todos}
+        setTodos={setTodos}
       />
     </>
   );

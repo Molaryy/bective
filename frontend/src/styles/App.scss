@@ -10,3 +10,29 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+
+.todos-parent {
+  display: grid;
+  grid-template-areas:
+    "form list-todos"
+    "get-todos list-todos"
+  ;
+}
+
+@media (width < 1421px) {
+  .todos-parent {
+    max-width: 400px;
+    grid-template-areas:
+    "form"
+    "get-todos"
+    "list-todos"
+  ;
+  }
+}
+
+
+
+.test {
+  display: grid;
+  place-items: center;
+}

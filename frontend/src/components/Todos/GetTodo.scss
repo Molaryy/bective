@@ -2,10 +2,10 @@
   width: 390px;
   display: flex;
   flex-direction: column;
+  grid-area: get-todos;
 }
 
 .input-todo {
-  margin-top: 2rem;
   width: 383px;
   height: 50px;
   border-radius: 10px;
@@ -13,6 +13,7 @@
   cursor: pointer;
   font-size: 17px;
   margin-bottom: -1.1rem;
+  margin-top: 2rem;
 }
 
 .get-todos-container {
