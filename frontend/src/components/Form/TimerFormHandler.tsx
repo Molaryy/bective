@@ -121,10 +121,10 @@ const TimerFormHandler = () => {
       {startPauseSound ? (
         <>
           <BreakTime />
-          <audio controls src={pauseSound} autoPlay hidden />
+          <audio controls src={pauseSound} autoPlay />
         </>
       ) : startWorkSound[0] && startWorkSound[1] ? (
-        <audio controls src={workSound} autoPlay hidden />
+        <audio controls src={workSound} autoPlay />
       ) : (
         <></>
       )}
