@@ -1,6 +1,6 @@
 # Bective
 
-More than a normal promodoro app.
+More than a normal pomodoro app.
 
 ## Features :
 ### Done:
