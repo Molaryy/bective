@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/Molaryy/bective/db"
-	"github.com/Molaryy/bective/middlewares"
+	"github.com/Molaryy/bective/middleware"
 	"github.com/Molaryy/bective/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -24,11 +24,11 @@ func todosHandler(r *gin.Engine) {
 }
 
 func authHandler(r *gin.Engine) {
-	r.POST("/register", middlewares.AuthController)
+	r.POST("/register", middleware.AuthController)
 }
 
 func router(r *gin.Engine) {
-	r.Use(middlewares.CORSMiddleware())
+	r.Use(middleware.CORSMiddleware())
 	authHandler(r)
 	todosHandler(r)
 	r.NoRoute(RouteNotFound)

@@ -1,7 +1,13 @@
 FROM node:20.4.0-alpine
-WORKDIR /bective
+
+WORKDIR /bective/front
+
 COPY package.json yarn.lock ./
-RUN yarn install
+
+RUN yarn
+
 COPY . .
+
 EXPOSE 5173
+
 CMD ["yarn", "dev"]

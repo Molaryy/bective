@@ -13,15 +13,11 @@ import (
 func getDbUrl() string {
 	envPath := "../.env"
 	dbUsr := os.Getenv("POSTGRES_USER")
-	dbHost := os.Getenv("POSTGRES_HOST")
 	dbPassword := os.Getenv("POSTGRES_PASSWORD")
 	dbName := os.Getenv("POSTGRES_DB")
 
 	if dbUsr == "" {
 		dbUsr = utils.GetEnvFileValue(envPath, "POSTGRES_USER")
-	}
-	if dbHost == "" {
-		dbHost = utils.GetEnvFileValue(envPath, "POSTGRES_HOST")
 	}
 	if dbPassword == "" {
 		dbPassword = utils.GetEnvFileValue(envPath, "POSTGRES_PASSWORD")
@@ -29,11 +25,12 @@ func getDbUrl() string {
 	if dbName == "" {
 		dbName = utils.GetEnvFileValue(envPath, "POSTGRES_DB")
 	}
-	return fmt.Sprintf("postgres://%s:%s@%s:5432/%s", dbUsr, dbPassword, dbHost, dbName)
+	return fmt.Sprintf("postgres://%s:%s@database:5432/%s", dbUsr, dbPassword, dbName)
 }
 
 func InitDb() *gorm.DB {
 	dbURL := getDbUrl()
+	fmt.Println(dbURL)
 	db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{})
 
 	if err != nil {
